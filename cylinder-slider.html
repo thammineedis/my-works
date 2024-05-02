@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Spearitical Slider</title>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                transform-style: inherit;
+            }
+
+            html {
+                height: 100%;
+            }
+
+            body {
+                display: grid;
+                place-items: center;
+                min-height: 100%;
+                background-color: #000;
+                color: #ddd;
+                overflow: hidden;
+            }
+
+            .outer {
+                width: 100%;
+                max-width: 1080px;
+                margin: 0 auto;
+                text-align: center;
+                overflow: hidden;
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #5a0b10;
+            }
+
+            @keyframes bg {
+                0% {
+                    background-position: 0% 90%;
+                }
+
+                50% {
+                    background-position: 100% 50%;
+                }
+
+                100% {
+                    background-position: 0 90%;
+                }
+            }
+
+            .carouzel-container {
+                display: grid;
+                width: 100%;
+                place-items: center;
+                perspective: calc(3 * var(--radius, 100px));
+                padding-block: 1rem;
+                transform-style: preserve-3d;
+                transition: perspective 600ms;
+                user-select: none;
+                cursor: grab;
+                overflow: hidden;
+                height: 100%;
+            }
+
+            .carouzel-container:active {
+                cursor: grabbing;
+            }
+
+            .carouzel {
+                width: max(min(50ch, 100%), 60%);
+                transform: translateZ(calc(-1 * var(--radius, 100px))) rotateY(var(--rotation, 0));
+                display: grid;
+                transform-style: preserve-3d;
+                grid-template-areas: "overlap";
+                height: 100%;
+                transition: transform 30ms ease-out;
+            }
+
+            .carouzel__face {
+                display: grid;
+                grid-area: overlap;
+                max-width: 95%;
+                width: 100%;
+                padding-inline: 0;
+                transform: rotateY(var(--rotation)) translateZ(var(--radius));
+                background-color: transparent;
+                opacity: 1;
+                margin-inline: auto;
+                height: 100%;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            .glassCard {
+                background-color: rgba(255, 255, 255, 0.13);
+                border-radius: 10px;
+                backdrop-filter: blur(10px);
+                border: 2px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+                padding: 40px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                width: 100%;
+                margin: 0 auto;
+                position: relative;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="outer">
+            <div class="carouzel-container" data-carouzel>
+                <div class="carouzel" data-cz>
+                    <div class="carouzel__face" data-cz-face>
+                        <div class="glassCard">
+                            <h1>Heading 1</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis velit dignissimos
+                                doloribus. Itaque expedita porro fugiat sapiente modi distinctio, exercitationem, odit
+                                animi eveniet deserunt nobis quasi, accusantium blanditiis totam rem!</p>
+                            <a href="https://finance.adityabirlacapital.com/">Know More</a>
+                        </div>
+                    </div>
+                    <div class="carouzel__face" data-cz-face>
+                        <div class="glassCard">
+                            <h1>Heading 2</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis velit dignissimos
+                                doloribus. Itaque expedita porro fugiat sapiente modi distinctio, exercitationem, odit
+                                animi eveniet deserunt nobis quasi, accusantium blanditiis totam rem!</p>
+                            <a href="https://finance.adityabirlacapital.com/">Know More</a>
+                        </div>
+                    </div>
+                    <div class="carouzel__face" data-cz-face>
+                        <div class="glassCard">
+                            <h1>Heading 3</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis velit dignissimos
+                                doloribus. Itaque expedita porro fugiat sapiente modi distinctio, exercitationem, odit
+                                animi eveniet deserunt nobis quasi, accusantium blanditiis totam rem!</p>
+                            <a href="https://finance.adityabirlacapital.com/">Know More</a>
+                        </div>
+                    </div>
+                    <div class="carouzel__face" data-cz-face>
+                        <div class="glassCard">
+                            <h1>Heading 4</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis velit dignissimos
+                                doloribus. Itaque expedita porro fugiat sapiente modi distinctio, exercitationem, odit
+                                animi eveniet deserunt nobis quasi, accusantium blanditiis totam rem!</p>
+                            <a href="https://finance.adityabirlacapital.com/">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const container = document.querySelector("[data-carouzel]");
+            const carousel = container.querySelector("[data-cz]");
+            const faces = carousel.querySelectorAll("[data-cz-face]");
+            let isMobile = window.innerWidth <= 768;
+
+            const mobileParams = {
+                maxspeed: 500,
+                dragModifier: 500,
+                friction: 0.95
+            };
+
+            const desktopParams = {
+                maxspeed: 5,
+                dragModifier: 8,
+                friction: 0.99
+            };
+
+            const params = isMobile ? mobileParams : desktopParams;
+
+            setFacesRadii();
+            function setFacesRadii() {
+                faces.forEach((face, i) => {
+                    const rotation = ((i * 360) / faces.length) % 360;
+                    face.style.setProperty("--rotation", rotation + "deg");
+                });
+            }
+
+            setRadius();
+            window.addEventListener("resize", setRadius, { passive: true });
+            function setRadius() {
+                const radius =
+                    (parseInt(carousel.offsetWidth) / 2) *
+                    (1 / Math.tan(Math.PI / faces.length));
+                container.style.setProperty("--radius", radius + "px");
+            }
+
+            window.addEventListener("resize", () => (innerWidth = window.innerWidth), {
+                once: true
+            });
+            container.addEventListener("pointerdown", (e) => {
+                px = e.x;
+                document.addEventListener("mousemove", trackMouse, { passive: false });
+            });
+            document.addEventListener("pointerup", (e) => {
+                document.removeEventListener("mousemove", trackMouse, { passive: false });
+            });
+
+            let handlingSpeed = false;
+            let speed = 0;
+            let px;
+            let py;
+            let rotation = 0;
+            let innerWidth = window.innerWidth;
+            function trackMouse(e) {
+                const { x } = e;
+                const dx = x - px;
+                px = x;
+                speed += (dx / innerWidth / faces.length) * params.dragModifier;
+
+                if (handlingSpeed === false) {
+                    handleSpeed();
+                }
+            }
+            function handleSpeed() {
+                handlingSpeed = true;
+                requestAnimationFrame(() => {
+                    (() => {
+                        speed = clamp(-params.maxspeed, speed, params.maxspeed);
+                        speed *= params.friction;
+                        rotation += speed;
+                        carousel.style.setProperty("--rotation", rotation + "deg");
+                    })();
+
+                    if (speed < 0.001 && speed > -0.001) {
+                        speed = 0;
+                        handlingSpeed = false;
+                    } else {
+                        handleSpeed();
+                    }
+                });
+            }
+            const clamp = (min, num, max) => Math.min(Math.max(num, min), max);
+            document.querySelectorAll("img[loading=lazy]").forEach((image) => {
+                image.addEventListener("load", fadeIn, { once: true });
+                if (!image.complete) image.classList.add("loading");
+                else image.removeEventListener("load", fadeIn);
+            });
+
+            function fadeIn(e) {
+                e.currentTarget.classList.remove("loading");
+            }
+
+            container.addEventListener("pointerdown", handlePointerDown);
+            document.addEventListener("pointerup", handlePointerUp);
+
+            let isDragging = false;
+            let touchStartX = 0;
+
+            function handlePointerDown(e) {
+                isDragging = true;
+                touchStartX = e.type === "touchstart" ? e.touches[0].clientX : e.x;
+                document.addEventListener("pointermove", trackPointer, { passive: false });
+            }
+
+            function handlePointerUp(e) {
+                isDragging = false;
+                document.removeEventListener("pointermove", trackPointer, { passive: false });
+            }
+
+            function trackPointer(e) {
+                if (!isDragging) return;
+
+                const currentX = e.type === "touchmove" ? e.touches[0].clientX : e.x;
+                const dx = currentX - touchStartX;
+                touchStartX = currentX;
+
+                speed += (dx / innerWidth / faces.length) * params.dragModifier;
+
+                if (!handlingSpeed) {
+                    handleSpeed();
+                }
+            }
+
+            container.addEventListener("touchstart", handlePointerDown);
+            document.addEventListener("touchend", handlePointerUp);
+        </script>
+    </body>
+
+</html>

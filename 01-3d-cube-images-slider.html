@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>3D Cube Transition Slider</title>
+
+        <!-- 3D Cube Swiper Styles -->
+        <link rel="stylesheet" href="css/swiper.min.css" />
+
+        <!-- Page styles declaration -->
+        <link rel="stylesheet" href="css/3d-cube-images-slider.css" />
+    </head>
+
+    <body>
+        <section class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide one">
+                    <img src="" alt="" class="entity-img">
+                </div>
+                <div class="swiper-slide two">
+                    <img src="" alt="" class="entity-img">
+                </div>
+                <div class="swiper-slide three">
+                    <img src="" alt="" class="entity-img">
+                </div>
+                <div class="swiper-slide four">
+                    <img src="" alt="" class="entity-img">
+                </div>
+            </div>
+
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev swiper-button-white"></div>
+            <div class="swiper-button-next swiper-button-white"></div>
+        </section>
+
+        <!-- Swiping Hand Icon Animation -->
+        <div id="swipe">
+            <div class="path"></div>
+            <div class="hand-icon"></div>
+            <h6>Drag Left / Right</h6>
+        </div>
+
+        <!-- Scripts Declaration -->
+        <script src="js/swiper.min.js"></script>
+        <script>
+            // Params
+            var sliderSelector = '.swiper-container',
+                isMove = false,
+                options = {
+                    init: false,
+                    loop: true,
+                    speed: 1400,
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: true,
+                    },
+                    effect: 'cube', // 'cube', 'fade', 'coverflow',
+                    cubeEffect: {
+                        shadow: true,
+                        slideShadows: false,
+                        shadowOffset: 50,
+                        shadowScale: 0.8,
+                    },
+                    grabCursor: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev'
+                    },
+
+                    // Events
+                    on: {
+                        init: function () {
+                            this.autoplay.stop();
+                        },
+                        imagesReady: function () {
+                            this.el.classList.remove('loading');
+                            this.autoplay.start();
+                        },
+                        touchMove: function (event) {
+                            if (!isMove) {
+                                this.el.classList.remove('scale-in');
+                                this.el.classList.add('scale-out');
+                                isMove = true;
+                            }
+                        },
+                        touchEnd: function (event) {
+                            this.el.classList.remove('scale-out');
+                            this.el.classList.add('scale-in');
+                            setTimeout(function () {
+                                isMove = false;
+                            }, 300);
+                        },
+                        slideChangeTransitionStart: function () {
+                            console.log('slideChangeTransitionStart ' + this.activeIndex);
+                            if (!isMove) {
+                                this.el.classList.remove('scale-in');
+                                this.el.classList.add('scale-out');
+                            }
+                        },
+                        slideChangeTransitionEnd: function () {
+                            console.log('slideChangeTransitionEnd ' + this.activeIndex);
+                            if (!isMove) {
+                                this.el.classList.remove('scale-out');
+                                this.el.classList.add('scale-in');
+                            }
+                        },
+                        transitionStart: function () {
+                            console.log('transitionStart ' + this.activeIndex);
+                        },
+                        transitionEnd: function () {
+                            console.log('transitionEnd ' + this.activeIndex);
+                        },
+                        slideChange: function () {
+                            console.log('slideChange ' + this.activeIndex);
+                            console.log(this);
+                        }
+                    }
+                },
+                mySwiper = new Swiper(sliderSelector, options);
+
+            // Initialize slider
+            mySwiper.init();
+
+            // TimeOut for Animation
+            setTimeout(function () {
+                document.getElementById('swipe').className = 'getOut';
+            }, 5000);
+        </script>
+    </body>
+
+</html>

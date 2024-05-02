@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Rotational Reveal | Random</title>
+
+        <link rel="stylesheet" href="css/rotational-reveal.css">
+    </head>
+
+    <body>
+        <main>
+            <div class="background"></div>
+            <div class="background background--2"></div>
+            <div class="background background--3"></div>
+            <div class="content">
+                <h1></h1>
+                <hr />
+                <h2></h2>
+                <button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+            </div>
+        </main>
+        <footer>
+            <div class="randomize"><button><img src="images/next_right_icon.svg" alt=""><span>Next</span></button></div>
+        </footer>
+
+        <!-- Page Scripts -->
+        <script>
+            const r = document.querySelector(":root");
+            const bodyElement = document.body;
+            const randomizeElement = document.querySelector(".randomize");
+            const destinations = [
+                {
+                    name: "Sahara",
+                    location: "Marrakech",
+                    img:
+                        "../images/dubai-desert-safari-6826298_1280.jpg"
+                },
+                {
+                    name: "Maldives",
+                    location: "Indian Ocean",
+                    img:
+                        "../images/maldives-1993704_1280.jpg"
+                },
+                {
+                    name: "Dolomites",
+                    location: "Italy",
+                    img:
+                        "../images/pale-di-san-martino-4979964_1280.jpg"
+                },
+                {
+                    name: "Highland",
+                    location: "Scotland",
+                    img:
+                        "../images/neist-point-540119_1280.jpg"
+                },
+                {
+                    name: "Kleifarvatn",
+                    location: "Iceland",
+                    img:
+                        "../images/iceland-2111811_1280.jpg"
+                },
+                {
+                    name: "Taj Mahal",
+                    location: "India",
+                    img:
+                        "../images/ai-generated-8200484_1280.webp"
+                },
+                {
+                    name: "Colorado",
+                    location: "Arizona",
+                    img:
+                        "../images/desert-1867005_1280.jpg"
+                },
+                {
+                    name: "Santorin",
+                    location: "Greece",
+                    img:
+                        "../images/church-2020258_1280.jpg"
+                },
+                {
+                    name: "Petra",
+                    location: "Jordan",
+                    img: "../images/petra-4351361_1280.jpg"
+                },
+                {
+                    name: "Fundy",
+                    location: "Canada",
+                    img: "../images/river-5765785_1280.jpg"
+                },
+                {
+                    name: "Fuji",
+                    location: "Japan",
+                    img: "../images/japan-1902834_1280.jpg"
+                },
+                {
+                    name: "Ha Long Bay",
+                    location: "Vietnam",
+                    img:
+                        "../images/marvel-7536676_1280.jpg"
+                }
+            ];
+            let nextDestination = destinations[1];
+
+            const getRandomDestination = () => {
+                const randomId = Math.floor(Math.random() * destinations.length);
+                return destinations[randomId];
+            };
+
+            const displayNextContent = () => {
+                if (bodyElement.classList.contains("body--animated")) {
+                    return;
+                }
+
+                bodyElement.classList.add("body--animated");
+
+                setTimeout(() => {
+                    r.style.setProperty("--img-current", `url(${nextDestination.img})`);
+                    r.style.setProperty("--text-current-title", `"${nextDestination.name}"`);
+                    r.style.setProperty(
+                        "--text-current-subtitle",
+                        `"${nextDestination.location}"`
+                    );
+                    setTimeout(() => {
+                        bodyElement.classList.remove("body--animated");
+                        setTimeout(() => {
+                            nextDestination = getRandomDestination();
+                            r.style.setProperty("--img-next", `url(${nextDestination.img})`);
+                            r.style.setProperty("--text-next-title", `"${nextDestination.name}"`);
+                            r.style.setProperty(
+                                "--text-next-subtitle",
+                                `"${nextDestination.location}"`
+                            );
+                        }, 1000);
+                    }, 1000);
+                }, 1000);
+            };
+
+            randomizeElement.addEventListener("click", displayNextContent);
+
+            // start on fist load only for CodePen Animation ;)
+            displayNextContent();
+        </script>
+    </body>
+
+</html>

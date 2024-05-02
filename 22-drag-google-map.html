@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Drag for Google Map</title>
+
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="css/drag-g-map.css">
+    </head>
+
+    <body>
+        <div class="outer">
+            <div class="slider js_slider">
+                <div class="frame js_frame">
+                    <ul class="slides js_slides">
+                        <li class="js_slide">
+                            <div class="store">
+                                <img src="images/logo.jpg" alt="" class="logo">
+                                <h1>Diwali Sale Offer</h1>
+                                <h5>Exciting offers awaits for you. Don't miss the Great festival sale.!</h5>
+                                <p>See Nearest Showroom <span><img src="images/forward_arrow.svg" alt=""></span></p>
+
+                                <!-- CTA Button -->
+                                <button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+                            </div>
+                            <!-- Swiping Hand Icon Animation -->
+                            <div id="swipe">
+                                <div class="path"></div>
+                                <div class="hand-icon"></div>
+                                <h6>Drag to left</h6>
+                            </div>
+                        </li>
+                        <li class="js_slide">
+                            <div class="mapouter">
+                                <div class="gmap_canvas">
+                                    <iframe
+                                        src="https://maps.google.com/maps?q=hyderabad,%20telangana&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+                                        frameborder="0" scrolling="yes" style="width: 100%; height: 600px;">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Scripts -->
+        <script src="js/lory.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var slider = document.querySelector('.js_slider');
+                lory(slider, {
+                    enableMouseEvents: true
+                });
+            });
+        </script>
+    </body>
+
+</html>

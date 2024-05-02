@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Video Cum Slider Combination</title>
+
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="css/adcard-slider.css">
+    </head>
+
+    <body>
+        <div class="outer">
+            <div class="adArea">
+                <h1 class="neon">Black Friday</h1>
+                <p class="special">up to <span>50%</span> off speacial-sale</p>
+
+                <!-- CTA Button -->
+                <button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+            </div>
+            <div class="bottomSlider">
+                <div class="carousel">
+                    <div class="carousel-item">
+                        <div class="carousel-box">
+                            <div class="title">One</div>
+                            <img src="images/1.jpg" />
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="carousel-box">
+                            <div class="title">Two</div>
+                            <img src="images/2.jpg" />
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="carousel-box">
+                            <div class="title">Three</div>
+                            <img src="images/3.jpg" />
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="carousel-box">
+                            <div class="title">Four</div>
+                            <img src="images/4.jpg" />
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="carousel-box">
+                            <div class="title">Five</div>
+                            <img src="images/5.jpg" />
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="carousel-box">
+                            <div class="title">Six</div>
+                            <img src="images/6.jpg" />
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="carousel-box">
+                            <div class="title">Seven</div>
+                            <img src="images/7.jpg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Swiping Hand Icon Animation -->
+        <div id="swipe">
+            <div class="path"></div>
+            <div class="hand-icon"></div>
+            <h6>Drag Left / Right</h6>
+        </div>
+
+
+        <!-- Page Scripts -->
+        <script>
+            // TimeOut for Animation
+            setTimeout(function () {
+                document.getElementById('swipe').className = 'getOut';
+            }, 7000);
+
+
+            // Vars
+            let progress = 1
+            let startX = 0
+            let active = 0
+            let isDown = false
+
+            /*--------------------
+            Contants
+            --------------------*/
+            const speedWheel = 0.02
+            const speedDrag = -0.1
+
+            /*--------------------
+            Get Z
+            --------------------*/
+            const getZindex = (array, index) => (array.map((_, i) => (index === i) ? array.length : array.length - Math.abs(index - i)))
+
+            /*--------------------
+            Items
+            --------------------*/
+            const $items = document.querySelectorAll('.carousel-item')
+            const $cursors = document.querySelectorAll('.cursor')
+
+            const displayItems = (item, index, active) => {
+                const zIndex = getZindex([...$items], active)[index]
+                item.style.setProperty('--zIndex', zIndex)
+                item.style.setProperty('--active', (index - active) / $items.length)
+            }
+
+            /*--------------------
+            Animate
+            --------------------*/
+            const animate = () => {
+                progress = Math.max(0, Math.min(progress, 100))
+                active = Math.floor(progress / 100 * ($items.length - 1))
+
+                $items.forEach((item, index) => displayItems(item, index, active))
+            }
+            animate()
+
+            /*--------------------
+            Click on Items
+            --------------------*/
+            $items.forEach((item, i) => {
+                item.addEventListener('click', () => {
+                    progress = (i / $items.length) * 100 + 10
+                    animate()
+                })
+            })
+
+            /*--------------------
+            Handlers
+            --------------------*/
+            const handleWheel = e => {
+                const wheelProgress = e.deltaY * speedWheel
+                progress = progress + wheelProgress
+                animate()
+            }
+
+            const handleMouseMove = (e) => {
+                if (e.type === 'mousemove') {
+                    $cursors.forEach(($cursor) => {
+                        $cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`
+                    })
+                }
+                if (!isDown) return
+                const x = e.clientX || (e.touches && e.touches[0].clientX) || 0
+                const mouseProgress = (x - startX) * speedDrag
+                progress = progress + mouseProgress
+                startX = x
+                animate()
+            }
+
+            const handleMouseDown = e => {
+                isDown = true
+                startX = e.clientX || (e.touches && e.touches[0].clientX) || 0
+            }
+
+            const handleMouseUp = () => {
+                isDown = false
+            }
+
+            /*--------------------
+            Listeners
+            --------------------*/
+            document.addEventListener('mousewheel', handleWheel)
+            document.addEventListener('mousedown', handleMouseDown)
+            document.addEventListener('mousemove', handleMouseMove)
+            document.addEventListener('mouseup', handleMouseUp)
+            document.addEventListener('touchstart', handleMouseDown)
+            document.addEventListener('touchmove', handleMouseMove)
+            document.addEventListener('touchend', handleMouseUp)
+        </script>
+    </body>
+
+</html>

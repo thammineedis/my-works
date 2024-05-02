@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Spin Wheel | Lucky Win</title>
+
+        <link rel="stylesheet" href="css/spin-wheel.css">
+    </head>
+
+    <body>
+        <div class="outer">
+            <div id="mainbox" class="mainbox">
+                <div id="box" class="box">
+                    <div class="box1">
+                        <span class="span1"><b>Iron Man</b></span>
+                        <span class="span2"><b>7500</b></span>
+                        <span class="span3"><b>Bat Man</b></span>
+                        <span class="span4"><b>Joker</b></span>
+                    </div>
+                    <div class="box2">
+                        <span class="span1"><b>Shoplifters</b></span>
+                        <span class="span2"><b>Inception</b></span>
+                        <span class="span3"><b>Deadpool</b></span>
+                        <span class="span4"><b>Terminator</b></span>
+                    </div>
+                </div>
+
+                <button class="spin" onclick="myfunction()">SPIN</button>
+
+                <button class="redirect" onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script>
+            function myfunction() {
+                var x = 1024; //min value
+                var y = 9999; // max value
+                var deg = Math.floor(Math.random() * (x - y)) + y;
+                document.getElementById('box').style.transform = "rotate(" + deg + "deg)";
+                var element = document.getElementById('mainbox');
+                element.classList.remove('animate');
+                setTimeout(function () {
+                    element.classList.add('animate');
+                }, 3000);
+            }
+        </script>
+    </body>
+
+</html>

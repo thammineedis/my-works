@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Before After Comparison Slider</title>
+
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="css/before-after.css">
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <div class="topLogo"><img src="images/livspace-logo.png" alt=""></div>
+            <input type="radio" id="trigger1" name="carousel" checked autofocus>
+            <label for="trigger1"> </label>
+            <div class="scroll">
+                <div class="ba-Slider" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
+                    <div id="before"><img src="images/1before.jpg" />
+                    </div>
+                    <div class="slider"></div>
+                    <div id="after"><img src="images/1after.jpg" />
+                    </div>
+                </div>
+            </div>
+
+            <input type="radio" id="trigger2" name="carousel">
+            <label for="trigger2"></label>
+            <div class="scroll">
+                <div class="ba-Slider" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
+                    <div id="before"><img src="images/2before.jpg" /></div>
+                    <div class="slider"></div>
+                    <div id="after"><img src="images/2after.jpg" /></div>
+                </div>
+            </div>
+
+            <input type="radio" id="trigger3" name="carousel">
+            <label for="trigger3"></label>
+            <div class="scroll">
+                <div class="ba-Slider" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
+                    <div id="before"><img src="images/3before.jpg" />
+                    </div>
+                    <div class="slider"></div>
+                    <div id="after"><img src="images/3after.jpg" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swiping Hand Icon Animation -->
+            <div id="swipe">
+                <div class="path"></div>
+                <div class="hand-icon"></div>
+                <h6>Drag the line</h6>
+            </div>
+            <div class="botFixed">
+                <img src="images/bottom-fixed.png" alt="">
+                <a href="https://www.google.com/" class="cta"><img src="images/CTA.png" alt=""></a>
+            </div>
+        </div>
+
+        <!-- Page Scripts -->
+        <script src="js/jquery.min.js"></script>
+        <script>
+            // Before & After Slider Script
+            var moveSlider = false;
+
+            $(document).ready(function () {
+                $(".ba-Slider").each(function (i) {
+                    $(this).children(".slider").on("mousedown touchstart", function (event) {
+                        moveSlider = true;
+                        $(this).parent().children("#before").removeClass("ease");
+                        $(this).removeClass("ease");
+                    });
+
+                    $(this).children(".slider").on("mouseup touchend", function () {
+                        moveSlider = false;
+                        $(this).parent().children("#before").addClass("ease");
+                        $(this).addClass("ease");
+                        var minmax = $(this).parent().width() / 8;
+                        if ($(this).parent().children("#before").width() > $(this).parent().width() - minmax) {
+                            $(this).parent().children("#before").width("100%");
+                            var sOffset = $(this).parent().width() - 0;
+                            $(this).css("left", sOffset);
+                        } else if ($(this).parent().children("#before").width() < minmax) {
+                            $(this).parent().children("#before").width(0);
+                            var sOffset = -0;
+                            $(this).css("left", sOffset);
+                        }
+                    });
+
+                    $(this).on("mouseup touchend", function () {
+                        moveSlider = false;
+                        $(this).children("#before").addClass("ease");
+                        $(this).children(".slider").addClass("ease");
+                        var minmax = $(this).width() / 8;
+                        if ($(this).children("#before").width() > $(this).width() - minmax) {
+                            $(this).children("#before").width("100%");
+                            var sOffset = $(this).width() - 0;
+                            $(this).children(".slider").css("left", sOffset);
+                        } else if ($(this).children("#before").width() < minmax) {
+                            $(this).children("#before").width(0);
+                            var sOffset = -0;
+                            $(this).children(".slider").css("left", sOffset);
+                        }
+                    });
+
+                    $(this).on("mousemove touchmove", function (e) {
+                        if (moveSlider == true) {
+                            var pOffset = $(this).offset();
+                            var mouseX = e.pageX || e.originalEvent.touches[0].pageX;
+                            var mouseXRelative = mouseX - pOffset.left;
+                            $(this).children("#before").width(mouseXRelative - 0.5);
+                            var sOffset = mouseXRelative - 0;
+                            $(this).children(".slider").css("left", sOffset);
+                        }
+                    });
+                });
+            });
+
+            // TimeOut for Animation
+            setTimeout(function () {
+                document.getElementById('swipe').className = 'getOut';
+            }, 5000);
+        </script>
+
+    </body>
+
+</html>

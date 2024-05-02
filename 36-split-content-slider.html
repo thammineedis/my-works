@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Content Slicing - Slider</title>
+
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="css/split-content-slider.css">
+    </head>
+
+    <body>
+        <div class="text-container">
+            <div class="pageTheme"><img src="https://images.pexels.com/photos/887353/pexels-photo-887353.jpeg" alt="">
+            </div>
+            <div class="content">CONTENT START FROM HERE! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
+                tristique turpis nulla, in iaculis nibh sodales ac. Nulla laoreet id ligula quis lacinia. Vestibulum
+                ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec sodales, lectus id
+                congue pellentesque, est justo bibendum urna, vel tristique orci lorem ut orci. Donec rhoncus orci quis
+                tristique sollicitudin. Aliquam vel mattis sapien. Vestibulum ante ipsum primis in faucibus orci luctus
+                et ultrices posuere cubilia curae; In rutrum sem suscipit, mattis massa vel, lobortis eros. Nullam
+                lobortis velit nec mi consequat, sed volutpat ipsum hendrerit. Mauris non vulputate ex. Vestibulum
+                rhoncus feugiat semper. Praesent ac semper ipsum. Pellentesque gravida quis velit ac euismod. Integer ut
+                urna purus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+                egestas. Sed Dapibus justo. Maecenas malesuada arcu eu faucibus congue. Maecenas hendrerit leo id
+                libero suscipit auctor. Quisque interdum, est quis volutpat condimentum, urna dui bibendum orci, eget
+                tincidunt erat mi et ante. Pellentesque maximus lacinia tincidunt. Pellentesque pretium molestie leo
+                eget facilisis. Donec aliquam odio aliquam felis hendrerit, sed volutpat orci malesuada. Nulla eget
+                lectus venenatis, posuere mi ut, elementum erat. Vivamus diam diam, fermentum sed libero eu, accumsan
+                sagittis libero. Donec imperdiet vitae lorem sit amet venenatis. Suspendisse ultrices lectus sit amet
+                iaculis auctor. Sed a massa et odio lacinia faucibus. Nunc pellentesque nisl felis, ac rhoncus sapien
+                maximus porttitor. Aenean et eros egestas, sollicitudin enim eu, tempus leo. Nunc a arcu dapibus,
+                iaculis ante in, facilisis tortor. Nullam ac tincidunt tortor. Mauris at elit vitae urna molestie
+                tempus. Ut a tellus porta, blandit ligula sit amet, ultrices urna. Pellentesque iaculis mauris ut metus
+                tincidunt varius. Vestibulum condimentum porttitor libero, at ultrices felis. Aenean eu dolor
+                scelerisque, faucibus erat ut, semper magna. Phasellus a leo metus. Maecenas vel finibus sapien, eu
+                hendrerit ligula.
+                Maecenas hendrerit facilisis nisi et dignissim. Aenean sagittis sapien non urna scelerisque accumsan.
+                Sed aliquam, lectus pellentesque convallis sodales, tortor dolor vulputate magna, vitae pulvinar lacus
+                lorem a elit. Etiam eu justo rhoncus, viverra ex id, rutrum augue. Phasellus sit amet magna eget mauris
+                faucibus euismod vitae id quam. Nunc luctus ultricies sapien sed tincidunt. Donec eu dignissim elit.
+                Curabitur non sagittis leo. Morbi imperdiet vitae orci id varius. Nam congue elit in ultricies
+                vulputate. Fusce suscipit luctus dui, in placerat arcu ornare sed. Fusce pretium, mauris ac
+                scelerisque luctus, eros erat imperdiet risus, in consectetur purus erat eleifend odio. Praesent non
+                rutrum lectus, vestibulum lacinia nisi. Aenean vel sodales urna, a dictum nisi. Suspendisse porttitor,
+                massa et convallis tristique, augue erat blandit eros, et gravida massa sem gravida felis.in consectetur
+                purus erat eleifend odio. Praesent non rutrum lectus, vestibulum lacinia nisi. Aenean vel sodales urna,
+                a dictum nisi. Suspendisse porttitor, massa et convallis tristique, augue erat blandit eros, et
+                gravida massa sem gravida felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique
+                turpis nulla, in iaculis nibh sodales ac. Nulla laoreet id ligula quis lacinia. Vestibulum ante ipsum
+                primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec sodales, lectus id congue
+                pellentesque, est justo bibendum urna, vel tristique orci lorem ut orci. Donec rhoncus orci quis
+                tristique sollicitudin. Aliquam vel mattis sapien. Vestibulum ante ipsum primis in faucibus orci luctus
+                et ultrices posuere cubilia curae; In rutrum sem suscipit, mattis massa vel, lobortis eros. Nullam
+                lobortis velit nec mi consequat, sed volutpat ipsum hendrerit. Mauris non vulputate ex. Vestibulum
+                rhoncus feugiat semper. Praesent ac semper ipsum. CONTENT - ENDED!
+            </div>
+        </div>
+        <div class="actions">
+            <button id="previous">Previous Content</button>
+            <button id="next">Continue Reading</button>
+        </div>
+
+        <script>
+            const textContainer = document.querySelector('.text-container');
+            const text = document.querySelector('.content');
+            const previousButton = document.getElementById('previous');
+            const nextButton = document.getElementById('next');
+            let currentPage = 0;
+
+            const completeText = text.textContent;
+
+            function splitText(textContent) {
+                let remainingText = textContent;
+                const textChunks = [];
+
+                while (remainingText) {
+                    const currentChunk = remainingText.slice(0, textContainer.clientHeight);
+                    textChunks.push(currentChunk);
+                    remainingText = remainingText.slice(textContainer.clientHeight);
+                }
+
+                return textChunks;
+            }
+
+            const textChunks = splitText(completeText);
+
+            function updateTextDisplay() {
+                const currentText = textChunks[currentPage];
+                text.textContent = currentText;
+
+                previousButton.disabled = currentPage === 0;
+                nextButton.disabled = currentPage === textChunks.length - 1;
+
+                // textContainer.style.maxHeight = '80%';
+                // textContainer.style.maxWidth = '100%';
+            }
+
+            // Initial text display
+            updateTextDisplay();
+
+            previousButton.addEventListener('click', () => {
+                if (currentPage > 0) {
+                    currentPage--;
+                    updateTextDisplay();
+                }
+            });
+
+            nextButton.addEventListener('click', () => {
+                if (currentPage < textChunks.length - 1) {
+                    currentPage++;
+                    updateTextDisplay();
+                }
+            });
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Flip Animation After Delay | Pure CSS</title>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .flip-container {
+                -webkit-perspective: 1000;
+                -moz-perspective: 1000;
+                -o-perspective: 1000;
+                perspective: 1000;
+                width: 100%;
+                max-width: 1080px;
+                margin: 0 auto;
+                text-align: center;
+                overflow: hidden;
+                height: 40vh;
+                position: relative;
+            }
+
+            .flip-container .flipper {
+                -webkit-transition: 0.6s;
+                -webkit-transform-style: preserve-3d;
+                -moz-transition: 0.6s;
+                -moz-transform-style: preserve-3d;
+                -o-transition: 0.6s;
+                -o-transform-style: preserve-3d;
+                transition: 0.6s;
+                transform-style: preserve-3d;
+                position: relative;
+                transform: rotateY(0deg);
+                height: 100%;
+                width: 100%;
+            }
+
+            .flip-container .flipper.flip {
+                -webkit-transform: rotateY(-180deg);
+                -moz-transform: rotateY(-180deg);
+                -o-transform: rotateY(-180deg);
+                transform: rotateY(-180deg);
+            }
+
+            .front,
+            .back {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                background-color: #000;
+            }
+
+            .front {
+                z-index: 2;
+            }
+
+            .back {
+                -webkit-transform: rotateY(-180deg);
+                -moz-transform: rotateY(-180deg);
+                -o-transform: rotateY(-180deg);
+                transform: rotateY(-180deg);
+            }
+
+            .front img,
+            .back img {
+                max-width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="flip-container">
+            <div class="flipper">
+                <div class="front">
+                    <img src="https://images.pexels.com/photos/1435537/pexels-photo-1435537.jpeg?auto=compress&cs=tinysrgb&w=600"
+                        alt="">
+                </div>
+                <div class="back">
+                    <img src="https://images.pexels.com/photos/3786124/pexels-photo-3786124.jpeg?auto=compress&cs=tinysrgb&w=600"
+                        alt="">
+                </div>
+            </div>
+        </div>
+
+        <!-- Flip Animation with Delay Script -->
+        <script>
+            function delayedFlip() {
+                setTimeout(function () {
+                    document.querySelector('.flipper').classList.add('flip');
+                }, 5000);
+            }
+
+            window.onload = delayedFlip;
+        </script>
+    </body>
+
+</html>

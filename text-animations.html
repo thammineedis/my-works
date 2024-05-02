@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Text Animations</title>
+
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="css/text-animations.css">
+    </head>
+
+    <body>
+        <div class="animationName">
+            <h5>Title Animation</h5>
+            <h1 class="title">Text Animations</h1>
+        </div>
+
+        <div class="animationName">
+            <h5>3D Dancing Letters</h5>
+            <h1 id="hint">
+                <span>D</span><span>a</span><span>n</span><span>c</span><span>i</span><span>n</span><span>g</span><span>&nbsp;</span><span>B</span><span>a</span><span>b</span><span>y</span>
+            </h1>
+        </div>
+
+        <div class="animationName">
+            <h5>Fill Sliding Effect</h5>
+            <h2 data-text='FILLTEXTSLIDING...'>FillTextSliding...</h2>
+        </div>
+
+        <div class="animationName">
+            <h5>Text Goo Effect with Rounded Corners</h5>
+            <h1>
+                <div class="goo" contenteditable="true">This is an example of a simple headline or text with rounded
+                    corners using a gooey SVG filter.</div>
+            </h1>
+            <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg"
+                version="1.1">
+                <defs>
+                    <filter id="goo">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+                            result="goo" />
+                        <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+                    </filter>
+                </defs>
+            </svg>
+        </div>
+
+        <div class="animationName">
+            <h5>Cinema Style Titles Effect</h5>
+            <div id="fly-in">
+                <div><span>Very</span>Cinematic</div>
+                <div>Fade Away<span>into the distance</span></div>
+                <div>Still Loops <span> for eternity</span></div>
+                <div><span>Just CSS</span> and HTML<br /></div>
+                <div><span>Very</span>Cinematic</div>
+                <div>Fade Away<span>into the distance</span></div>
+                <div>Still Loops <span> for eternity</span></div>
+                <div><span>Just CSS</span> and HTML<br /></div>
+            </div>
+        </div>
+
+        <div class="animationName">
+            <h5>Glitch Text Effect</h5>
+            <div class="glitch" data-text="GLITCH&nbsp;EFFECT">GLITCH&nbsp;EFFECT</div>
+            <div class="glow">GLITCH&nbsp;EFFECT</div>
+            <div class="scanlines"></div>
+        </div>
+
+        <div class="animationName">
+            <h5>Text Shine Transition</h5>
+            <h1 class="shine">I can shine.!</h1>
+        </div>
+
+        <div class="animationName fullWidth">
+            <h5>Text Marque Scroll Infinite</h5>
+            <div class="marqueWrapper">
+                <div class="fromRight">
+                    <p>Discover the best <span class="blue">website designs</span> of the world.</p>
+                    <p>Awwwards recognizes the <span class="orange">talent</span> and effort of <span class="green">the
+                            best designers,</span> web developers and digital
+                        agencies.</p>
+                    <p><span class="blue">World Class</span> Website <span class="orange">design inspiration.!</span>
+                    </p>
+                </div>
+
+                <div class="fromLeft">
+                    <p>Discover the best <span class="green">website designs</span> of the world</p>
+                    <p>Awwwards recognizes the <span class="blue">talent</span> and effort of <span class="orange">the
+                            best designers,</span> web developers and digital
+                        agencies.</p>
+                    <p><span class="blue">World Class</span> Website <span class="orange">design inspiration.!</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

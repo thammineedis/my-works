@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Drag to Reveal Another</title>
+
+        <link rel="stylesheet" href="css/drag-reveal.css">
+    </head>
+
+    <body>
+        <div class='container'>
+            <div class='img background-img'></div>
+            <div class='img foreground-img'></div>
+            <input type="range" min="1" max="100" value="50" class="slider" name='slider' id="slider">
+            <div class='slider-button'></div>
+            <button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+        </div>
+
+        <!-- Swiping Hand Icon Animation -->
+        <div id="swipe">
+            <div class="path"></div>
+            <div class="hand-icon"></div>
+            <h6>Drag Middle Line</h6>
+        </div>
+
+        <!-- Scripts -->
+        <script src="js/jquery.min.js"></script>
+        <script>
+            $("#slider").on("input change", (e) => {
+                const sliderPos = e.target.value;
+                // Update the width of the foreground image
+                $('.foreground-img').css('width', `${sliderPos}%`)
+                // Update the position of the slider button
+                $('.slider-button').css('left', `calc(${sliderPos}% - 18px)`)
+            });
+
+            // TimeOut for Animation
+            setTimeout(function () {
+                document.getElementById('swipe').className = 'getOut';
+            }, 5000);
+        </script>
+    </body>
+
+</html>

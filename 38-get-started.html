@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Get Started Slider</title>
+
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="css/slick.min.css">
+        <link rel="stylesheet" href="css/slick-theme.min.css">
+
+        <link rel="stylesheet" href="css/get-started.css">
+    </head>
+
+    <body>
+        <div class="onboard">
+            <img src="images/care-crush-logo.png" alt="" class="logo">
+            <div class="slider">
+                <div class="item">
+                    <div class="ico">
+                        <img src="images/no_data.png" alt="">
+                    </div>
+                    <div class="tit">
+                        100 different days
+                    </div>
+                    <div class="text">
+                        Every day we'll send you a element to design, except the weekends since you should go enjoy the
+                        outdoors
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="ico">
+                        <img src="images/obj6.png" alt="">
+                    </div>
+                    <div class="tit">
+                        Become better
+                    </div>
+                    <div class="text">
+                        Improve your skills as a designer interpreting how to design different user interface elements
+                        for
+                        mobile and web.
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="ico">
+                        <img src="images/thank-you.png" alt="">
+                    </div>
+                    <div class="tit">
+                        Thanks You.!
+                    </div>
+                    <div class="text">
+                        Get feedback in real time from others and improve your design skills getting better day after
+                        day
+                    </div>
+                    <a href="" class="cta">Get Started.!</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Scripts -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/slick.min.js"></script>
+        <script>
+            $('.slider').slick({
+                arrows: false,
+                dots: true,
+                infinite: false,
+                speed: 200,
+                focusOnSelect: false,
+                customPaging: function (slider, i) {
+                    return '<a><svg width="100%" height="100%" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.215"></circle></svg><span></span></a>';
+                },
+            }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+                $('.item').removeClass('from-right from-left ready');
+                c = (currentSlide < nextSlide) ? 'from-right' : 'from-left';
+                $('.item').eq(nextSlide).addClass(c);
+            }).on('afterChange', function (event, slick, currentSlide) {
+                $('.item').eq(currentSlide).addClass('ready');
+            });
+        </script>
+    </body>
+
+</html>

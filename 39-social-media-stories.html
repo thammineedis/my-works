@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Social Media Stories | Autoplay Slider</title>
+
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="css/swiper-bundle.min.css">
+        <link rel="stylesheet" href="css/social-media-stories.css">
+    </head>
+
+    <body>
+        <div class="story">
+            <div class="story__slider swiper">
+                <div class="story__wrapper swiper-wrapper">
+                    <div class="story__slide swiper-slide">
+                        <img src="images/jimny-1new.jpg" class="show" />
+                        <div class="content show">
+                            <h1><span>2023</span>Maruti Suzuki Jimny</h1>
+                            <h3>Stop Dreaming, Let's explore the world.!</h3>
+                        </div>
+                    </div>
+                    <div class="story__slide swiper-slide">
+                        <img src="images/Jimnyfront.jpg" />
+                        <div class="content">
+                            <h1><span>Since 1970</span>A Story passed down four Generations!</h1>
+                            <p>The ability to power through the roughest terrains is embedded in the Jimny's DNA. The
+                                off-roader is currently on display at multiple NEXA dealerships in the country.</p>
+                        </div>
+                    </div>
+                    <div class="story__slide swiper-slide">
+                        <img src="images/suzuki-jimny-roofview.jpg" />
+                        <div class="content">
+                            <h1><span>Worry Free</span>Hill Hold &amp; Hill Descent Control Assist</h1>
+                            <p>Climb like a mountain goat on the steepest roads</p>
+                        </div>
+                    </div>
+                    <div class="story__slide swiper-slide">
+                        <img src="images/suzuki-jimny-engine.jpg" />
+                        <div class="content">
+                            <h1><span>2023 Jimny</span>Engine Specifications</h1>
+                            <p>A 1.5L petrol engine will be used here, belting out 105 PS and 134 Nm. Transmission
+                                choices will include a 5-speed MT
+                                and 4-speed AT</p>
+                        </div>
+                    </div>
+                    <div class="story__slide swiper-slide">
+                        <img src="images/jimny-white.jpg" />
+                        <div class="content">
+                            <h1><span>2023</span> Maruti Suzuki Jimny</h1>
+                            <p>Its simplicity has been instrumental in driving people to the extraordinary and back.
+                                With stories that have become
+                                legends over time.</p>
+                        </div>
+                    </div>
+                    <div class="story__slide swiper-slide">
+                        <img src="images/suzuki-jimny-chassis.jpg" />
+                        <div class="content">
+                            <h1>Ladder Frame Chassis</h1>
+                            <p>The stories you seek are not for the fainthearted. The Jimny's ladder frame structure
+                                provides the torsional rigidity
+                                required to overcome and conquer the most difficult terrain.</p>
+                        </div>
+                    </div>
+                    <div class="story__slide swiper-slide">
+                        <img src="images/jimny-dashboard-vertical.jpg" />
+                        <div class="content">
+                            <h1><span>2023</span> Maruti Suzuki Jimny Dashboard</h1>
+                            <p>Jimny's dashboard will get a 9-inch touchscreen infotainment unit, and the seats will
+                                fold down flat to make a bed.</p>
+                        </div>
+                    </div>
+                    <div class="story__slide swiper-slide">
+                        <img src="images/suzuki-jimny-topview.jpg" />
+                        <div class="content">
+                            <h1><span>2023</span> Maruti Suzuki Jimny Safety</h1>
+                            <p>The Jimny will come 6 airbags, ABS, EBD, Traction control system, Brake-Locking axles,
+                                Reverse Parking Camera, ISOFIX child seat mounts and more...</p>
+                        </div>
+                    </div>
+                    <div class="story__slide swiper-slide">
+                        <img src="images/jimny-vertical.jpg" />
+                        <div class="content">
+                            <h1>Ample Body Angles and Clearance</h1>
+                            <p>Defy the odds and take outdoor exploration to a whole new degree. With the Jimny's ample
+                                departure and approach angles, the harshest of terrains will bow before you.</p>
+                        </div>
+                    </div>
+                    <div class="story__slide swiper-slide">
+                        <img src="images/jimny-airbags.webp" />
+                        <div class="content">
+                            <h1><span>Packed with</span>6 Airbags | Dual Front Airbags</h1>
+                            <p>2023 Maruti Jimny comes with 6 airbags. The thrill of the ride is only possible with
+                                safety on your side</p>
+                        </div>
+                    </div>
+                    <div class="story__slide swiper-slide">
+                        <img src="images/suzuki-jimny-hillstand.jpg" />
+                        <div class="content">
+                            <h1><span>Off-Roading</span>All Grip Pro</h1>
+                            <p>Chase every off-roading dream - no matter how far-fetched. The Jimny's proven 4x4
+                                technology with low-range transfer gear gives you max torque and traction to conquer the
+                                toughest terrain.</p>
+                        </div>
+                    </div>
+                    <div class="story__slide swiper-slide lastItem">
+                        <img src="images/All-new-2019-Suzuki-Jimny-colours.jpg" />
+                        <button class="show">Explore More</button>
+                    </div>
+                </div>
+
+                <div class="story__next swiper-button-next"></div>
+                <div class="story__prev swiper-button-prev"></div>
+
+                <div class="story__pagination swiper-pagination"></div>
+
+                <!-- Added Pause/Play buttons 
+                <div class="story__controls">
+                    <button class="pause-play"><i class="pause"></i></button>
+                </div> -->
+            </div>
+        </div>
+
+        <!-- Page Scripts -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/gsap.min.js"></script>
+        <script src="js/swiper-bundle.min.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const slider = new Swiper(".story__slider", {
+                    speed: 1,
+                    watchSlidesProgress: true,
+                    autoplay: {
+                        delay: 7000, // initial delay (fallback)
+                        disableOnInteraction: false,
+                        stopOnLastSlide: true,
+                    },
+                    slidesPerView: 1,
+                    navigation: {
+                        nextEl: ".story__next",
+                        prevEl: ".story__prev",
+                    },
+                    pagination: {
+                        el: '.story__pagination',
+                        renderBullet: function (index, className) {
+                            return '<div class="' + className + '"> <div class="swiper-pagination-progress"></div> </div>';
+                        }
+                    },
+                    on: {
+                        slideChangeTransitionEnd() {
+                            const activeSlide = slider.slides[slider.activeIndex];
+                            const activeVideo = activeSlide.querySelector('video');
+                            const isLastSlide = slider.isEnd;
+
+                            // Remove 'show' class from the previous slide
+                            const prevSlide = slider.slides[slider.previousIndex];
+                            const prevContent = prevSlide.querySelector('.content');
+                            prevContent.classList.remove('show');
+                            const prevImage = prevSlide.querySelector('img');
+                            prevImage.classList.remove('show');
+
+                            // Add 'show' class to the current slide
+                            const currentSlide = slider.slides[slider.activeIndex];
+                            const currentContent = currentSlide.querySelector('.content');
+                            currentContent.classList.add('show');
+                            const currentImage = currentSlide.querySelector('img');
+                            currentImage.classList.add('show');
+
+                            if (activeVideo) {
+                                // For video slides, set autoplay delay to video duration
+                                slider.params.autoplay.delay = activeVideo.duration * 1000;
+                                // Start autoplay manually to reflect the updated delay
+                                slider.autoplay.start();
+                                // If it's not the last slide, set the delay for the next slide
+                                if (!isLastSlide) {
+                                    const nextSlide = slider.slides[slider.activeIndex + 1];
+                                    const nextVideo = nextSlide.querySelector('video');
+                                    if (nextVideo) {
+                                        slider.params.autoplay.delay += nextVideo.duration * 1000;
+                                    } else {
+                                        slider.params.autoplay.delay += 7000; // default delay for images
+                                    }
+                                }
+                            } else {
+                                // For non-video slides, set default delay
+                                slider.params.autoplay.delay = 7000;
+                                // Start autoplay manually to reflect the updated delay
+                                slider.autoplay.start();
+                            }
+
+                            // Handle the 'show' class for the button
+                            handleButtonClass();
+                        },
+                        autoplayTimeLeft(swiper, time, progress) {
+                            let currentSlide = document.querySelectorAll('.story__slider .swiper-slide')[swiper.activeIndex]
+                            let currentBullet = document.querySelectorAll('.story__slider .swiper-pagination-progress')[swiper.realIndex]
+                            let fullTime = currentSlide.dataset.swiperAutoplay ? parseInt(currentSlide.dataset.swiperAutoplay) : swiper.params.autoplay.delay;
+
+                            let percentage = Math.min(Math.max(parseFloat(((fullTime - time) * 100 / fullTime).toFixed(1)), 0), 100) + '%';
+
+                            gsap.set(currentBullet, { width: percentage });
+                        },
+                        autoplayStopOnLast() {
+                            // Add a class to the button to show it when autoplay stops on the last slide
+                            const lastSlideButton = document.querySelector('.lastItem button');
+                            lastSlideButton.classList.add('show');
+
+                            const lastSlideImg = document.querySelector('.lastItem img');
+                            lastSlideImg.classList.add('blur');
+                        },
+                        transitionEnd(swiper) {
+                            let allBullets = $('.story__slider .swiper-pagination-progress');
+                            let bulletsBefore = allBullets.slice(0, swiper.realIndex);
+                            let bulletsAfter = allBullets.slice(swiper.realIndex, allBullets.length);
+                            if (bulletsBefore.length) { gsap.set(bulletsBefore, { width: '100%' }) }
+                            if (bulletsAfter.length) { gsap.set(bulletsAfter, { width: '0%' }) }
+
+                            let activeSlide = document.querySelectorAll('.story__slider .swiper-slide')[swiper.realIndex];
+                            if (activeSlide.querySelector('video')) {
+                                activeSlide.querySelector('video').currentTime = 0;
+                            }
+
+                            // Handle the 'show' class for the button
+                            handleButtonClass();
+                        },
+                    },
+                });
+
+                function handleButtonClass() {
+                    const lastSlideButton = document.querySelector('.lastItem button');
+                    if (slider.isEnd) {
+                        // If the current slide is the last one, add the 'show' class to the button
+                        lastSlideButton.classList.add('show');
+                    } else {
+                        // If the current slide is not the last one, remove the 'show' class from the button
+                        lastSlideButton.classList.remove('show');
+                    }
+
+                    const lastSlideImg = document.querySelector('.lastItem img');
+                    if (slider.isEnd) {
+                        // If the current slide is the last one, add the 'show' class to the button
+                        lastSlideImg.classList.add('blur');
+                    } else {
+                        // If the current slide is not the last one, remove the 'show' class from the button
+                        lastSlideImg.classList.remove('blur');
+                    }
+                }
+            });
+        </script>
+
+    </body>
+
+</html>

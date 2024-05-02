@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Prize Box Animation</title>
+
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="css/giftbox.css">
+    </head>
+
+    <body>
+        <div id="giftBox" class="hide">
+            <div>
+                <div class="sc-bdVaJa hCqOlD">
+                    <div class="sc-bwzfXH biqWkE">
+                        <div class="sc-htpNat kGQype">
+                            <div class="sc-bxivhb sc-dnqmqq ZEDDw">
+                                <div class="sc-iwsKbI ekMwXW"></div>
+                                <div class="sc-gZMcBi fujrhZ"></div>
+                                <div class="sc-gqjmRU jRAgJu"></div>
+                                <div class="sc-VigVT gpuqLL"></div>
+                            </div>
+                            <div class="sc-bxivhb sc-ifAKCX kLAltZ"></div>
+                            <div class="sc-bxivhb sc-EHOje gvPWuP"></div>
+                            <div class="sc-bxivhb sc-bZQynM ldKBkL"></div>
+                            <div class="sc-bxivhb sc-gzVnrw fFMyeM"></div>
+                            <div class="sc-bxivhb sc-htoDjs crPZsS"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="raysHolder">
+            <div id="rays"></div>
+        </div>
+
+        <div class="pyro" id="confetti" style="display:none;">
+            <div class="before"></div>
+            <div class="after"></div>
+        </div>
+
+        <div class="frame">
+            <button class="revealAnim" id="hideBtn" onclick="validate(); myFunction();">Reveal GiftBox</button>
+
+            <div class="message">
+                <div>
+                    <h1>Hurray!</h1>
+                    <h2>Congratulations. You won the gift.!</h2>
+                    <img src="images/gift.png" alt="">
+                    <a href="">claim your gift now!</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/html2canvas.min.js"></script>
+        <script src="js/mootools-1.3.js"></script>
+        <script src="js/page-animations.js"></script>
+        <script>
+            // Prizebox animation
+            var elem = document.getElementById("giftBox")
+            onclick = function () {
+                document.body.removeChild(elem)
+                setTimeout(function () {
+                    document.body.prepend(elem)
+                }, 500)
+            }
+
+            // Define myFunction in the global scope
+            function myFunction() {
+                var element = document.getElementById("giftBox");
+                element.classList.remove("hide");
+            }
+
+            // Show and Hide Button and Animation
+            function validate() {
+                var myButton = document.getElementById('hideBtn');
+                var myImage = document.getElementById('confetti');
+                var myBox = document.getElementById('giftBox');
+                var hide_timeout = 100;
+                var show_timeout = 500;
+
+                setTimeout(function () {
+                    myButton.style.display = 'none';
+                    myImage.style.display = 'none';
+                }, hide_timeout);
+
+                setTimeout(function () {
+                    myButton.style.display = 'none';
+                    myImage.style.display = 'block';
+                }, show_timeout);
+
+            }
+
+            // Show GiftBox Upon Click
+            $(document)
+                .ready(function () {
+                    $('.frame')
+                        .click(function () {
+                            $('.top').addClass('open');
+                            $('.message').addClass('pull');
+                        })
+                });
+        </script>
+    </body>
+
+</html>

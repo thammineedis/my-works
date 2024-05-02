@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Masking</title>
+
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                height: 100vh;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+                overflow: hidden;
+                color: white;
+                font-family: "Roboto", sans-serif;
+                background: url(images/background2.jpg) center center no-repeat;
+                background-size: cover;
+            }
+
+            #action {
+                padding: 10px;
+                font-size: 0.875em;
+                cursor: pointer;
+                font-weight: 700;
+                font-family: "Roboto", sans-serif;
+                position: absolute;
+                z-index: 10;
+                left: 50%;
+                top: 50%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <button id="action">Toggle Reveal</button>
+        <svg id="demo" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+            <defs>
+                <mask id="theMask">
+                    <rect x="0" y="0" width="100%" height="100%" fill="#fff" />
+                    <circle id="cover" r="0" fill="black" cx="50%" cy="50%" />
+                </mask>
+            </defs>
+
+            <g mask="url(#theMask)">
+                <rect id="goAway" x="0" y="0" width="100%" height="100%" fill="#000" />
+            </g>
+        </svg>
+
+        <!-- Page Scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+
+        <script>
+            console.clear();
+            TweenLite.defaultEase = Power2.easeInOut;
+            TweenMax.set("#action", { xPercent: -50, yPercent: -50 });
+            document.querySelector("#action").addEventListener("click", doCoolStuff);
+
+            var toggle = "closed";
+            var r = 0;
+            var dur = 0.75;
+
+            function doCoolStuff() {
+                if (toggle == "closed") {
+                    toggle = "open";
+                    TweenMax.to("#cover", dur, { attr: { r: r } });
+                } else {
+                    toggle = "closed";
+                    TweenMax.to("#cover", dur, { attr: { r: 0 } });
+                }
+            }
+
+            function figureMask() {
+                // find the minimum radius needed to cover
+                // the entire SVG and center the circle 
+                var data = document.querySelector("#goAway").getBBox();
+                r = figureRadius(data.width, data.height);
+                // if the image is visible
+                // update the radius while resizing
+                if (toggle != "closed") {
+                    TweenMax.set("#cover", { attr: { r: r } });
+                }
+            }
+
+            function figureRadius(w, h) {
+                return Math.sqrt(Math.pow(w, 2) + Math.pow(h, 2)) / 2;
+            }
+
+            figureMask();
+            window.addEventListener("resize", figureMask);
+
+        </script>
+
+    </body>
+
+</html>

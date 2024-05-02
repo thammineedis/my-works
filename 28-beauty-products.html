@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Beauty Products Swiper Slider</title>
+
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="css/swiper.min.css">
+        <link rel="stylesheet" href="css/beauty-products.css">
+    </head>
+
+    <body>
+        <div class="outer">
+            <h1>Beauty Products Catelogue</h1>
+            <div class="flex-box-wrap">
+                <main class="main-single-view">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="images/bp1.jpg" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/bp2.jpg" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/bp3.jpg" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/bp4.jpg" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/bp5.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            <button onclick="location.href = 'https://www.google.co.in/';">Discover More</button>
+        </div>
+
+        <!-- Swiping Hand Icon Animation -->
+        <div id="swipe">
+            <div class="path"></div>
+            <div class="hand-icon"></div>
+            <h6>Drag Left / Right</h6>
+        </div>
+
+        <!-- Page Scripts -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/swiper.min.js"></script>
+        <script>
+
+            // TimeOut for Animation
+            setTimeout(function () {
+                document.getElementById('swipe').className = 'getOut';
+            }, 5000);
+
+
+            var swiperZoom = new Swiper('.swiper-container', {
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: '2',
+                spaceBetween: 100,
+                loop: true,
+
+                breakpoints: {
+                    640: {
+                        slidesPerView: '1',
+                        spaceBetween: 20
+                    }
+                },
+
+                effect: 'coverflow',
+                keyboard: true,
+
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 300,
+                    modifier: 2,
+                    slideShadows: false,
+                },
+
+                // Responsive breakpoints
+
+            });
+        </script>
+    </body>
+
+</html>

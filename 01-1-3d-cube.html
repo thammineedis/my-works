@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>3D Cube Transition Slider</title>
+        <link rel="stylesheet" href="https://sticky.way2news.co/css/swiper.min.css" />
+        <link rel="stylesheet" href="https://sticky.way2news.co/css/3d-cube-styles.css" />
+    </head>
+
+    <body>
+        <section class="swiper-container" style="display: none;">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="" alt="" class="entity-img">
+                    <div class="content">
+                        <h1>Mercedez Benz</h1>
+                        <img src="https://d1uy1wopdv0whp.cloudfront.net/Ads_Animation2/img_1.png" alt="">
+                        <div class="fixedButton"><button onclick="redirectUrl(1)">Shop
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="" alt="" class="entity-img">
+                    <div class="content">
+                        <h1>Sports Accessories</h1>
+                        <img src="https://d1uy1wopdv0whp.cloudfront.net/Ads_Animation2/img_2.png" alt="">
+                        <div class="fixedButton spl"><button onclick="redirectUrl(2)">Shop
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="" alt="" class="entity-img">
+                    <div class="content">
+                        <h1>Home Appliances</h1>
+                        <img src="https://d1uy1wopdv0whp.cloudfront.net/Ads_Animation2/img_3.png" alt="">
+                        <div class="fixedButton"><button onclick="redirectUrl(3)">Shop
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="" alt="" class="entity-img">
+                    <div class="content">
+                        <h1>Cool Cakes and Stuff</h1>
+                        <img src="https://d1uy1wopdv0whp.cloudfront.net/Ads_Animation2/img_4.png" alt="">
+                        <div class="fixedButton spl"><button onclick="redirectUrl(4)">Shop
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="" alt="" class="entity-img">
+                    <div class="content">
+                        <h1>Black Range Rover</h1>
+                        <img src="https://d1uy1wopdv0whp.cloudfront.net/Ads_Animation2/img_5.png" alt="">
+                        <div class="fixedButton"><button onclick="redirectUrl(5)">Shop
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev swiper-button-white"></div>
+            <div class="swiper-button-next swiper-button-white"></div>
+        </section>
+
+        <div id="swipe">
+            <div class="path"></div>
+            <div class="hand-icon"></div>
+            <h6>Drag Left / Right</h6>
+        </div>
+
+        <script src="https://sticky.way2news.co/js/swiper.min.js"></script>
+        <script src="https://sticky.way2news.co/js/jquery-1.12.4.min.js"></script>
+        <script>
+            var sliderSelector = '.swiper-container',
+                isMove = false,
+                options = {
+                    init: false,
+                    loop: true,
+                    speed: 1400,
+                    autoplay: {
+                        delay: 1000,
+                        disableOnInteraction: false,
+                    },
+                    effect: 'cube',
+                    cubeEffect: {
+                        shadow: false,
+                        slideShadows: false,
+                        shadowOffset: 40,
+                        shadowScale: 0,
+                    },
+                    grabCursor: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev'
+                    },
+
+                    on: {
+                        init: function () {
+                            this.autoplay.stop();
+                        },
+                        imagesReady: function () {
+                            this.el.classList.remove('loading');
+                            this.autoplay.start();
+                        },
+                        touchMove: function (event) {
+                            if (!isMove) {
+                                this.el.classList.remove('scale-in');
+                                this.el.classList.add('scale-out');
+                                isMove = false;
+                            }
+                        },
+                        touchEnd: function (event) {
+                            this.el.classList.remove('scale-out');
+                            this.el.classList.add('scale-in');
+                            setTimeout(function () {
+                                isMove = false;
+                            }, 300);
+                        },
+                        slideChangeTransitionStart: function () {
+                            console.log('slideChangeTransitionStart ' + this.activeIndex);
+                            if (!isMove) {
+                                this.el.classList.remove('scale-in');
+                                this.el.classList.add('scale-out');
+                            }
+                        },
+                        slideChangeTransitionEnd: function () {
+                            console.log('slideChangeTransitionEnd ' + this.activeIndex);
+                            if (!isMove) {
+                                this.el.classList.remove('scale-out');
+                                this.el.classList.add('scale-in');
+                            }
+                        },
+                        transitionStart: function () {
+                            console.log('transitionStart ' + this.activeIndex);
+                        },
+                        transitionEnd: function () {
+                            console.log('transitionEnd ' + this.activeIndex);
+                        },
+                        slideChange: function () {
+                            console.log('slideChange ' + this.activeIndex);
+                            console.log(this);
+                        }
+                    }
+                },
+                mySwiper = new Swiper(sliderSelector, options);
+
+            mySwiper.init();
+            $(".swiper-container").show();
+
+            setTimeout(function () {
+                document.getElementById('swipe').className = 'getOut';
+            }, 3000);
+            function redirectUrl(imgVal) {
+                let clickUrl = "";
+                switch (imgVal) {
+                    case 1:
+                        clickUrl = 'https://www.google.co.in/';
+                        break;
+                    case 2:
+                        clickUrl = 'https://www.amazon.in/';
+                        break;
+                    case 3:
+                        clickUrl = 'https://www.flipkart.com/';
+                        break;
+                    case 4:
+                        clickUrl = 'https://www.myntra.com/';
+                        break;
+                    case 5:
+                        clickUrl = 'https://cred.club/';
+                        break;
+                }
+                var link = document.createElement('a');
+                link.target = '_blank';
+                link.href = clickUrl;
+                document.body.appendChild(link);
+                link.click();
+            }
+        </script>
+    </body>
+
+</html>

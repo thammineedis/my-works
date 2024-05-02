@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tooltip | Pure CSS</title>
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+            html {
+                height: 100%;
+            }
+
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-size: 20px;
+                line-height: 30px;
+                color: #333;
+                font-family: "Playfair Display", serif;
+                font-optical-sizing: auto;
+                font-weight: normal;
+                padding: 50px;
+            }
+
+            .simpleText {
+                padding: 50px 0;
+                position: relative;
+            }
+
+            .simpleText .spellError {
+                position: relative;
+                text-decoration: underline;
+                color: rgb(197, 67, 67);
+                font-weight: 600;
+            }
+
+            .hovercard {
+                position: absolute;
+                opacity: 0;
+                z-index: 1;
+                left: 50%;
+                top: auto;
+                transform: translateX(-50%);
+                width: auto;
+            }
+
+            .spellError:hover .hovercard {
+                opacity: 1;
+                transition: 0.5s;
+                transition-delay: 0.1s;
+            }
+
+            .hovercard .tooltiptext {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                background-color: #fff;
+                padding: 22px;
+                border-radius: 4px;
+                color: #333;
+                line-height: 24px;
+                transition: 1s;
+                width: 100%;
+                position: relative;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .rightWord {
+                font-weight: 600;
+                color: #1d8f00;
+                font-size: 30px;
+                cursor: pointer;
+            }
+
+            .recommended {
+                white-space: nowrap;
+                padding-bottom: 12px;
+                font-size: 16px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 20px;
+            }
+
+            .ignore {
+                font-size: 14px;
+                text-decoration: underline;
+                color: #e64949;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>This is pure CSS tooltip on mouse hover..!</h1>
+
+        <div class="simpleText">Lorem ipsum dollar sit amet consectituer ellips. This is a dummy text most of the <span
+                class="spellError">designars
+                <div class="hovercard">
+                    <div class="tooltiptext">
+                        <span class="recommended">Recommended Text <span class="ignore">Ignore</span></span>
+                        <span class="rightWord">Designers</span>
+                    </div>
+                </div>
+            </span> use
+            this for visual appearance.
+        </div>
+    </body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Water Reveal Effect Animation</title>
+    <link rel="stylesheet" href="css/water-reveal-effect.css" />
+  </head>
+
+  <body>
+    <main>
+      <div class="slider">
+        <div id="rgbKineticSlider" class="rgbKineticSlider"></div>
+        <nav>
+          <a href="#" class="main-nav prev" data-nav="previous">Prev <span></span></a>
+          <a href="#" class="main-nav next" data-nav="next">Next <span></span></a>
+        </nav>
+      </div>
+
+      <!-- CTA Button -->
+      <button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+    </main>
+
+    <!-- Swiping Hand Icon Animation -->
+    <div id="swipe">
+      <div class="path"></div>
+      <div class="hand-icon"></div>
+      <h6>Drag Left / Right</h6>
+    </div>
+
+    <!-- TweenMax -->
+    <script src="js/TweenMax.min.js"></script>
+    <script src="js/imagesLoaded.pkgd.min.js"></script>
+    <script src="js/pixi.min.js"></script>
+    <script src="js/pixi-filters.min.js"></script>
+    <script src="js/rgbKineticSlider.js"></script>
+    <script>
+      const images = ["https://images.pexels.com/photos/18275750/pexels-photo-18275750/free-photo-of-view-of-dunes-on-the-desert.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/1591224/pexels-photo-1591224.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/12765459/pexels-photo-12765459.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/13019475/pexels-photo-13019475.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/18201408/pexels-photo-18201408/free-photo-of-portrait-of-an-australian-shepherd-sitting-in-the-middle-of-a-road.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"];
+      const texts = [["FIRST ONE"], ["SECOND ONE"], ["THIRD ONE"], ["FOURTH ONE"], ["FIFTH ONE"]];
+
+      rgbKineticSlider = new rgbKineticSlider({
+        slideImages: images,
+        itemsTitles: texts,
+
+        backgroundDisplacementSprite:
+          images,
+        cursorDisplacementSprite:
+          images,
+        cursorScaleIntensity: 0.6,
+        cursorMomentum: 0.14,
+
+        swipe: true,
+        swipeDistance: window.innerWidth * 0.4,
+        swipeScaleIntensity: 2,
+
+        slideTransitionDuration: 0.8,
+        transitionScaleIntensity: 30,
+        transitionScaleAmplitude: 160,
+
+        nav: true,
+        navElement: ".main-nav",
+
+        imagesRgbEffect: false,
+        imagesRgbIntensity: 4,
+        navImagesRgbIntensity: 120,
+
+        textsDisplay: true,
+        textTitleSize: 144,
+        textsTiltEffect: true,
+        googleFonts: ["Playfair Display:400"],
+        textsRgbEffect: true,
+        textsRgbIntensity: 1,
+      });
+
+      // TimeOut for Animation
+      setTimeout(function () {
+        document.getElementById('swipe').className = 'getOut';
+      }, 5000);
+    </script>
+
+  </body>
+
+</html>

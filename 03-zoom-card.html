@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>On Scroll Zoom Card</title>
+        <link rel="stylesheet" href="css/swiper-bundle.min.css">
+        <link rel="stylesheet" href="css/zoom-card.css">
+
+    </head>
+
+    <body>
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide swiper-slide--1">
+                </div>
+                <div class="swiper-slide swiper-slide--2">
+                </div>
+
+                <div class="swiper-slide swiper-slide--3">
+                </div>
+
+                <div class="swiper-slide swiper-slide--4">
+                </div>
+
+                <div class="swiper-slide swiper-slide--5">
+                </div>
+            </div>
+
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <!-- Swiping Hand Icon Animation -->
+        <div id="swipe">
+            <div class="path"></div>
+            <div class="hand-icon"></div>
+            <h6>Drag Left / Right</h6>
+        </div>
+
+        <!-- Scripts Declaration -->
+        <script src="js/swiper-bundle.min.js"></script>
+        <script src="js/zoom-card.js"></script>
+        <script>
+            // TimeOut for Animation
+            setTimeout(function () {
+                document.getElementById('swipe').className = 'getOut';
+            }, 5000);
+        </script>
+    </body>
+
+</html>

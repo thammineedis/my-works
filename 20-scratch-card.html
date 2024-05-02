@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Scratch Card</title>
+
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="css/scratch-card.css">
+    </head>
+
+    <body>
+        <div class="outer">
+            <div class="scratch-card">
+                <h2>Get 20% </h2>
+                <h3>On Your Next Purchase</h3>
+                <p class="ghost"><span>&#8630;</span> Scratch below & get your offer code <span>&#8631;</span></p>
+                <div id="scratch-container" class="scratch-container">
+                    <canvas class="scratch-canvas" id="scratch-canvas" width="300" height="60"></canvas>
+                    <p id="code" class="code">WNOCTOFF20</p>
+                </div>
+                <button>Use Coupon</button>
+            </div>
+        </div>
+
+        <!-- Page Scripts Declaration -->
+
+        <script src="js/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                var isDrawing, lastPoint;
+                var container = document.getElementById("scratch-container");
+                var canvas = document.getElementById("scratch-canvas");
+                var canvasWidth = canvas.width;
+                var canvasHeight = canvas.height;
+                var ctx = canvas.getContext("2d");
+                var image = new Image();
+                var brush = new Image();
+                var scratched = 45;
+
+                image.src =
+                    "    data:image/png;base64,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";
+                image.onload = function () {
+                    ctx.drawImage(image, 0, 0);
+                    document.getElementById("code").style.visibility = "visible";
+                };
+                brush.src =
+                    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAWlBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACLSV5RAAAAHXRSTlMAAwUGEExNV1iAgZGSk5SWrcTFxsfo6err7Pj5+se8V9QAAAChSURBVHjahdJVAoQwFEPR4O5O+/a/zPHBSc/vxQkWtpc03Tx3TeLZOHKjQRZj5O5r2MlOF26iVchJYS21lAvlv2dyKf/WQG4E7+r2d7l3AURyKwKc4T4PDjwhPKQsZ6hYrjGwPECxrEzZcPGaP5rhxTyWfTgT+6j8l9AfOrh0DiE+cjomPkUy5EV4eL4+xI4bT7KYYhdHtpe2vdZ9m3oO/p5S8U72h4JMdwAAAABJRU5ErkJggg==";
+
+                canvas.addEventListener("mousedown", handleMouseDown, false);
+                canvas.addEventListener("touchstart", handleMouseDown, false);
+                canvas.addEventListener("mousemove", handleMouseMove, false);
+                canvas.addEventListener("touchmove", handleMouseMove, false);
+                canvas.addEventListener("mouseup", handleMouseUp, false);
+                canvas.addEventListener("touchend", handleMouseUp, false);
+
+                function distanceBetween(point1, point2) {
+                    return Math.sqrt(
+                        Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2)
+                    );
+                }
+
+                function angleBetween(point1, point2) {
+                    return Math.atan2(point2.x - point1.x, point2.y - point1.y);
+                }
+
+                function getFilledInPixels(stride) {
+                    if (!stride || stride < 1) {
+                        stride = 1;
+                    }
+
+                    var pixels = ctx.getImageData(0, 0, canvasWidth, canvasHeight),
+                        pdata = pixels.data,
+                        l = pdata.length,
+                        total = l / stride,
+                        count = 0;
+
+                    for (var i = (count = 0); i < l; i += stride) {
+                        if (parseInt(pdata[i]) === 0) {
+                            count++;
+                        }
+                    }
+
+                    return Math.round((count / total) * 100);
+                }
+
+                function getMouse(e, canvas) {
+                    var offsetX = 0,
+                        offsetY = 0,
+                        mx,
+                        my;
+
+                    if (canvas.offsetParent !== undefined) {
+                        do {
+                            offsetX += canvas.offsetLeft;
+                            offsetY += canvas.offsetTop;
+                        } while ((canvas = canvas.offsetParent));
+                    }
+
+                    if (!hasTouch()) {
+                        mx = e.pageX - offsetX;
+                        my = e.pageY - offsetY;
+                    } else {
+                        var touch = e.touches[0];
+                        mx = touch.pageX - offsetX;
+                        my = touch.pageY - offsetY;
+                    }
+
+                    return { x: mx, y: my };
+                }
+
+                function handlePercentage(filledInPixels, scratched) {
+                    filledInPixels = filledInPixels || 0;
+                    if (filledInPixels > scratched) {
+                        //  Do something
+                        console.log("yo");
+                        document.getElementById("scratch-canvas").classList.add("fade-out");
+                        document.getElementById("code").style.zIndex = 20;
+                    }
+                }
+
+                function handleMouseDown(e) {
+                    isDrawing = true;
+                    lastPoint = getMouse(e, canvas);
+                }
+
+                function handleMouseMove(e) {
+                    if (!isDrawing) {
+                        return;
+                    }
+
+                    e.preventDefault();
+
+                    var currentPoint = getMouse(e, canvas),
+                        dist = distanceBetween(lastPoint, currentPoint),
+                        angle = angleBetween(lastPoint, currentPoint),
+                        x,
+                        y;
+
+                    for (var i = 0; i < dist; i++) {
+                        x = lastPoint.x + Math.sin(angle) * i - 25;
+                        y = lastPoint.y + Math.cos(angle) * i - 25;
+                        ctx.globalCompositeOperation = "destination-out";
+                        ctx.drawImage(brush, x, y);
+                    }
+
+                    lastPoint = currentPoint;
+                    handlePercentage(getFilledInPixels(60), scratched);
+                }
+
+                function handleMouseUp(e) {
+                    isDrawing = false;
+                }
+
+                function hasTouch() {
+                    return (
+                        "ontouchstart" in window ||
+                        navigator.maxTouchPoints > 0 ||
+                        navigator.msMaxTouchPoints > 0
+                    );
+                }
+            });
+
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Animation Library Demos | All in one</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700;900&display=swap"
+            rel="stylesheet">
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            ::-webkit-scrollbar {
+                width: 4px;
+                height: 4px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background-color: rgba(160, 160, 160, 0.15);
+            }
+
+            ::-webkit-scrollbar-thumb {
+                -webkit-border-radius: 4px;
+                border-radius: 4px;
+                background: #ce1131;
+            }
+
+            body,
+            html {
+                height: 100%;
+                background: rgb(8, 8, 8);
+                line-height: 20px;
+                scroll-behavior: smooth;
+                font-family: 'Titillium Web', sans-serif;
+                font-size: 16px;
+            }
+
+            #outer {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                height: 100vh;
+                position: relative;
+            }
+
+            .actBtns {
+                display: flex;
+                width: fit-content;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: .5em;
+            }
+
+            .actBtns button {
+                border: 0;
+                background: #c9f31d;
+                color: #000;
+                padding: 8px 16px;
+                font-size: 14px;
+                line-height: 22px;
+                font-weight: 600;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            .preview {
+                width: 490px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                height: 89%;
+                padding: 1.5em 1.5em 0;
+                margin-top: -2em;
+                gap: 1em;
+                position: relative;
+            }
+
+            .preview h4 {
+                color: #fff;
+                font-size: 13px;
+                font-weight: 600;
+                background-color: #2c2c2c;
+                padding: .3em 1em;
+                border-radius: 4px;
+                letter-spacing: .03em;
+                text-transform: uppercase;
+                position: absolute;
+                border: 1px solid #c9f31d;
+                top: 11px;
+                left: 50%;
+                transform: translateX(-50%);
+                white-space: nowrap;
+            }
+
+            .preview iframe {
+                width: 100%;
+                height: 100%;
+                border: 1px solid #c9f31d;
+                background-color: #000000;
+            }
+
+            .wrapper {
+                width: calc(100% - 500px);
+                padding: .5em 1em 3em;
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: start;
+                gap: 1em;
+                color: #fff;
+                height: 100%;
+                overflow-y: auto;
+                position: relative;
+            }
+
+            button.learn-more {
+                position: absolute;
+                top: 35px;
+                right: 0;
+                display: inline-block;
+                cursor: pointer;
+                outline: none;
+                border: 0;
+                vertical-align: middle;
+                text-decoration: none;
+                background: transparent;
+                padding: 0;
+                font-size: inherit;
+                font-family: inherit;
+            }
+
+            button.learn-more {
+                min-width: 21.5rem;
+                height: auto;
+            }
+
+            button.learn-more .circle {
+                transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+                position: relative;
+                display: block;
+                margin: 0;
+                width: 3rem;
+                height: 3rem;
+                background: #c9f31d;
+                border-radius: 1.625rem;
+            }
+
+            button.learn-more .circle .ico {
+                transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                background: none;
+            }
+
+            button.learn-more .circle .ico.arrw {
+                transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+                left: 0.625rem;
+                width: 1.125rem;
+                height: 0.125rem;
+                background: none;
+            }
+
+            button.learn-more .circle .ico.arrw::before {
+                position: absolute;
+                content: "";
+                top: -0.285rem;
+                right: 0.0625rem;
+                width: 0.625rem;
+                height: 0.625rem;
+                border-top: 0.125rem solid #000;
+                border-right: 0.125rem solid #000;
+                transform: rotate(45deg);
+            }
+
+            button.learn-more .button-text,
+            button.learn-more .button-text a {
+                transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                padding: 0.75rem 1rem .75rem 0;
+                margin: 0 0 0 1.85rem;
+                color: #fff;
+                font-size: max(12px, min(14px, 1.4rem));
+                font-weight: 600;
+                text-align: center;
+                text-decoration: none;
+            }
+
+            button.learn-more:hover .circle {
+                width: 100%;
+            }
+
+            button.learn-more:hover .circle .ico.arrw {
+                background: #000;
+                transform: translate(1rem, 0);
+            }
+
+            button.learn-more:hover .button-text,
+            button.learn-more:hover .button-text a {
+                color: #000;
+                text-decoration: none;
+            }
+
+            .wrapper img {
+                margin-bottom: -3em;
+                max-width: 120px;
+            }
+
+            .wrapper h1 {
+                font-size: 50px;
+                font-weight: 700;
+                padding: .5em 0 1em;
+                line-height: 40px;
+                margin-bottom: -1em;
+                text-align: center;
+                color: #c9f31d;
+                letter-spacing: 0.02em;
+            }
+
+            .wrapper p {
+                font-size: 20px;
+                font-weight: 300;
+                padding: 0 0 .25em;
+                text-align: center;
+                line-height: 38px;
+                display: block;
+                clear: both;
+            }
+
+            .wrapper p span {
+                color: rgba(255, 255, 255, .6);
+                display: block;
+                clear: both;
+                font-size: 16px;
+                letter-spacing: .015em;
+                text-transform: uppercase;
+            }
+
+            .wrapper p span b {
+                color: #c9f31d;
+                text-decoration: underline;
+            }
+
+            .wrapper nav {
+                overflow-y: auto;
+            }
+
+            .wrapper nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            ul.demos {
+                margin: 0;
+                padding: 1em;
+                width: 100%;
+                text-align: center;
+            }
+
+            ul.demos li {
+                list-style: none;
+                transition: all 1s ease;
+                display: inline-block;
+                position: relative;
+                margin: .5em .35em;
+            }
+
+            ul.demos li.busted::after {
+                position: absolute;
+                content: 'Not Working';
+                font-size: 10px;
+                font-weight: bold;
+                line-height: 12px;
+                color: #000;
+                background-color: #c9f31d;
+                border-radius: 3px;
+                padding: 3px 4px;
+                right: 6px;
+                text-transform: uppercase;
+                opacity: .7;
+                top: -9px;
+                letter-spacing: 0.015em;
+                width: 75px;
+            }
+
+            ul.demos li.busted a {
+                opacity: .3;
+            }
+
+            ul.demos li a {
+                border: 1px solid rgba(38, 37, 37, 1);
+                border-radius: 6px;
+                -webkit-border-radius: 6px;
+                padding: 12px 24px;
+                font-size: 18px;
+                line-height: 24px;
+                color: rgb(165, 165, 165);
+                text-decoration: none;
+                font-weight: 600;
+                transition: all .75s ease;
+                position: relative;
+                background: #1d1d1d;
+                display: block;
+                letter-spacing: .02em;
+            }
+
+            ul.demos li a:hover,
+            ul.demos li.active a {
+                color: #000;
+                background-color: #c9f31d;
+                border-color: #c9f31d;
+            }
+
+            ul.demos h3 {
+                color: #fff;
+                font-size: 16px;
+                font-weight: normal;
+                padding: 1em 0;
+                line-height: 28px;
+                letter-spacing: .03em;
+                text-transform: uppercase;
+                display: block;
+                clear: both;
+                width: 100%;
+                text-align: center;
+                text-decoration: underline wavy red;
+            }
+
+            nav select {
+                display: none;
+            }
+
+            select:focus,
+            select:focus-visible {
+                outline: none;
+                box-shadow: none;
+            }
+
+            #filterSearch {
+                display: table;
+                width: 50%;
+                padding: .75em 1.5em;
+                font-size: 16px;
+                color: #fff;
+                background-color: #1d1d1d;
+                border: 1px solid #292929;
+                border-radius: 4px;
+            }
+
+            #noResults {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: .6em;
+                padding: 1em;
+                min-height: 30%;
+                text-align: center;
+            }
+
+            #noResults img {
+                max-width: 300px;
+                margin-bottom: 0;
+            }
+
+            #noResults p span {
+                display: block;
+                clear: both;
+                color: #ffeb3b;
+            }
+
+            @media (max-width: 991px) {
+                nav ul {
+                    display: none;
+                }
+
+                nav select {
+                    display: inline-block;
+                    padding: .6em .75em;
+                    border-color: #6f32ff;
+                    background-color: #3600b3;
+                    color: #fff;
+                }
+
+
+                #outer {
+                    flex-direction: column;
+                }
+
+
+                .wrapper {
+                    height: 37%;
+                    padding: .6em;
+                    gap: .4em;
+                }
+
+                .wrapper,
+                .preview {
+                    width: 100%;
+                }
+
+                .wrapper img {
+                    max-height: 60px;
+                }
+
+                .wrapper h1 {
+                    font-size: 26px;
+                    line-height: 30px;
+                }
+
+                .wrapper p {
+                    font-size: 15px;
+                    line-height: 20px;
+                }
+
+                #filterSearch {
+                    display: none;
+                }
+
+            }
+
+            .animation-container {
+                position: relative;
+                display: block;
+                text-align: center;
+                height: 100px;
+                width: 100px;
+                border-bottom: solid 2px #ff580a;
+                overflow: hidden;
+                margin: 10px auto;
+            }
+
+            .bounce {
+                display: inline-block;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 40px;
+                height: 40px;
+                margin-left: -20px;
+                background-size: contain;
+                animation: bounceAnim 1s cubic-bezier(.63, .09, .75, .46) infinite alternate,
+                    spinAnim 3s linear infinite;
+                -webkit-filter: invert(100%);
+                filter: invert(100%);
+            }
+
+            @keyframes bounceAnim {
+
+                0%,
+                10% {
+                    bottom: 50%;
+                }
+
+                100% {
+                    bottom: 0%;
+                }
+            }
+
+            @keyframes spinAnim {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .pebble1 {
+                position: absolute;
+                top: 95%;
+                background-color: #ff580a;
+                width: 10px;
+                height: 10px;
+                border-radius: 20px 20px 0px 0px;
+                animation: pebblesAnim 1s linear infinite;
+            }
+
+            .pebble2 {
+                position: absolute;
+                top: 97%;
+                background-color: #ff580a;
+                width: 5px;
+                height: 5px;
+                border-radius: 10px 10px 0px 0px;
+                animation: pebblesAnim 2s linear infinite;
+            }
+
+            .pebble3 {
+                position: absolute;
+                top: 98%;
+                background-color: #ff580a;
+                width: 3px;
+                height: 3px;
+                border-radius: 20px 20px 0px 0px;
+                animation: pebblesAnim 3s linear infinite;
+            }
+
+            @keyframes pebblesAnim {
+                0% {
+                    right: -20%;
+                }
+
+                100% {
+                    right: 110%;
+                }
+            }
+
+            #sd-container {
+                position: fixed;
+                bottom: 0;
+                left: 38%;
+                transform: translateY(-50%);
+            }
+
+            .arrow {
+                position: relative;
+                width: 18px;
+                height: 14px;
+                opacity: 0;
+            }
+
+            .arrow::before,
+            .arrow::after {
+                content: "";
+                width: 8px;
+                height: 2px;
+                background-color: #c9f31d;
+                border-radius: 2px;
+                display: inline-block;
+            }
+
+            .arrow::before {
+                transform: rotate(45deg) translateX(25%);
+            }
+
+            .arrow::after {
+                transform: rotate(-45deg) translateX(-25%);
+            }
+
+            .arrow:nth-child(1) {
+                top: -16px;
+                opacity: 1;
+                -webkit-animation: arrow2 1s ease 0s infinite;
+                animation: arrow2 1s ease 0s infinite;
+            }
+
+            .arrow:nth-child(2) {
+                top: -10px;
+                -webkit-animation: arrow1 1s ease 0.25s infinite;
+                animation: arrow1 1s ease 0.25s infinite;
+            }
+
+            @-webkit-keyframes arrow1 {
+                from {
+                    opacity: 0;
+                    top: -15px;
+                }
+
+                to {
+                    opacity: 0;
+                    top: 0px;
+                }
+
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes arrow1 {
+                from {
+                    opacity: 0;
+                    top: -15px;
+                }
+
+                to {
+                    opacity: 0;
+                    top: 0px;
+                }
+
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            @-webkit-keyframes arrow2 {
+                from {
+                    opacity: 0;
+                    top: -20px;
+                }
+
+                to {
+                    opacity: 0;
+                    top: -5px;
+                }
+
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes arrow2 {
+                from {
+                    opacity: 0;
+                    top: -20px;
+                }
+
+                to {
+                    opacity: 0;
+                    top: -5px;
+                }
+
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            hr {
+                border-color: rgba(3, 169, 244, 0.5);
+            }
+
+            .bgVideo {
+                position: fixed;
+                inset: 0;
+                overflow: hidden;
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+            }
+
+            video {
+                object-fit: cover;
+                width: 100vw;
+                height: 100vh;
+                position: fixed;
+                inset: 0;
+                z-index: 1;
+            }
+
+            .bgVideo::after {
+                position: absolute;
+                content: '';
+                background-color: rgba(0, 0, 0, .2);
+                z-index: 2;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Video Background -->
+        <div class="bgVideo">
+            <video src="images/demo-bg-video-waves.mp4" autoplay loop playsinline muted></video>
+        </div>
+
+        <div id="sd-container">
+            <div class="arrow"></div>
+            <div class="arrow"></div>
+        </div>
+        <div id="outer">
+            <div class="wrapper">
+                <img src="images/bar-loader.gif" alt="">
+                <h1>Animation Library - All In One Demos.!</h1>
+                <p>All the animations ordered with serial numbers to know newly added items for future updates.</p>
+
+                <div class="actBtns">
+                    <button id="demos">All Modal Library - Demos</button>
+                    <button id="uilibrary">Individual UI Library</button>
+                </div>
+
+                <button class="learn-more">
+                    <span class="circle" aria-hidden="true">
+                        <span class="ico arrw"></span>
+                    </span>
+                    <span class="button-text">
+                        <a href="https://docs.google.com/spreadsheets/d/1EB5qT-i7k2lfmYLZdWQE0dFIdD2AuTXEGSoelC1a1r0/edit?usp=sharing"
+                            target="_blank">Ad Innovations Working URLs - Spread
+                            Sheet</a>
+                    </span>
+                </button>
+                <input type="text" id="filterSearch" onkeyup="myFunction()"
+                    placeholder="Search particular animation here to list out.!" title="Type Animation Number / Name.!">
+
+                <nav>
+                    <ul class="demos" id="mainNav">
+                        <p><span>Click on below buttons to experience the animations in right side <b>Previw
+                                    Pane</b></span>
+                        </p>
+
+                        <div id="noResults" style="display:none;">
+                            <div class="animation-container">
+                                <div class="bounce"></div>
+                                <div class="pebble1"></div>
+                                <div class="pebble2"></div>
+                                <div class="pebble3"></div>
+                            </div>
+                            <p><span>Oops.. No Animations Found.!</span>Please try with different name or serial
+                                number.
+                            </p>
+                        </div>
+                        <div id="modalLibrary" class="hidden">
+                            <h3>Demo Library Modals</h3>
+                            <li class="item"><a href="01-3d-cube.html" target="preview" class="clickableLink">01 3D Cube
+                                    Slider</a>
+                            </li>
+                            <li class="item"><a href="01-3d-cube-images-slider.html" target="preview"
+                                    class="clickableLink">01 Images
+                                    only 3D
+                                    Cube</a></li>
+                            <li class="item"><a href="02-blur-card.html" target="preview" class="clickableLink">02 Blur
+                                    Behind
+                                    Card</a>
+                            </li>
+                            <li class="item"><a href="03-zoom-card.html" target="preview" class="clickableLink">03 Zoom
+                                    Card
+                                    Slider</a>
+                            </li>
+                            <li class="item"><a href="04-countdown-timer.html" target="preview" class="clickableLink">04
+                                    Countdown
+                                    Timer
+                                    Variation - 1</a>
+                            </li>
+                            <li class="item"><a href="04-countdown-timer-ver2.html" target="preview"
+                                    class="clickableLink">04
+                                    Countdown
+                                    Timer Variation -
+                                    2</a>
+                            </li>
+                            <li class="item"><a href="05-spin-wheel.html" target="preview" class="clickableLink">05 Spin
+                                    Wheel</a>
+                            </li>
+                            <li class="busted"><a href="06-rotational-reveal.html" target="preview"
+                                    class="clickableLink">06
+                                    Rotational
+                                    Reveal</a></li>
+                            <li class="item"><a href="07-split-photo.html" target="preview" class="clickableLink">07
+                                    Split Photo</a>
+                            </li>
+                            <li class="item"><a href="08-vertical-cards.html" target="preview" class="clickableLink">08
+                                    Vertical
+                                    Cards</a></li>
+                            <li class="item"><a href="09-tinder-slider.html" target="preview" class="clickableLink">09
+                                    Tinder
+                                    Slider</a>
+                            </li>
+                            <li class="item"><a href="10-drag-reveal.html" target="preview" class="clickableLink">10
+                                    Drag Reveal -
+                                    Single</a></li>
+                            <li class="item"><a href="10-multi-drag-reveal.html" target="preview"
+                                    class="clickableLink">10 Drag
+                                    Reveal -
+                                    Multi</a>
+                            </li>
+                            <li class="busted"><a href="11-flip-page-animation.html" target="preview"
+                                    class="clickableLink">11 Flip Page Animation
+                                    Old</a>
+                            </li>
+                            <li class="item"><a href="12-flip-page-animation-new.html" target="preview"
+                                    class="clickableLink">12 Flip
+                                    Page Animation
+                                    New</a></li>
+                            <li class="item"><a href="13-parallax-3dscroll.html" target="preview"
+                                    class="clickableLink">13 Parallax
+                                    3d
+                                    Scroll</a></li>
+                            <li class="item"><a href="14-continuous-sections.html" target="preview"
+                                    class="clickableLink">14
+                                    Continuous
+                                    Sections</a>
+                            </li>
+                            <li class="item"><a href="15-before-after.html" target="preview" class="clickableLink">15
+                                    Before
+                                    After</a>
+                            </li>
+                            <li class="item"><a href="16-rotating-3d-slider.html" target="preview"
+                                    class="clickableLink">16 Rotating
+                                    3D
+                                    Slider</a>
+                            </li>
+                            <li class="item"><a href="17-giftbox.html" target="preview" class="clickableLink">17
+                                    Giftbox</a></li>
+                            <li class="item"><a href="18-slicebox-3dslider.html" target="preview"
+                                    class="clickableLink">18 Slicebox
+                                    3D
+                                    slider</a></li>
+                            <li class="item"><a href="19-swinging-animation.html" target="preview"
+                                    class="clickableLink">19 Swinging
+                                    Animation
+                                    -
+                                    Variation 1</a></li>
+                            <li class="item"><a href="19-swinging-animation2.html" target="preview"
+                                    class="clickableLink">19 Swinging
+                                    Animation -
+                                    Variation 2</a></li>
+                            <li class="item"><a href="20-scratch-card.html" target="preview" class="clickableLink">20
+                                    Scratch
+                                    Card</a>
+                            </li>
+                            <li class="item"><a href="21-fridaysale-slider.html" target="preview"
+                                    class="clickableLink">21 Friday
+                                    Sale
+                                    Slider</a></li>
+
+                            <li class="item"><a href="22-drag-google-map.html" target="preview" class="clickableLink">22
+                                    Drag Google
+                                    Map</a></li>
+                            <li class="item"><a href="23-water-reveal-effect.html" target="preview"
+                                    class="clickableLink">23 Water
+                                    Reveal
+                                    Effect</a></li>
+                            <li class="item"><a href="24-swipe-items-only.html" target="preview"
+                                    class="clickableLink">24 Swipe Items
+                                    Only</a>
+                            </li>
+                            <li class="item"><a href="25-video-card.html" target="preview" class="clickableLink">25
+                                    Video Card</a>
+                            </li>
+                            <li class="item"><a href="26-video-cum-slider.html" target="preview"
+                                    class="clickableLink">26 Video Cum
+                                    Slider</a>
+                            </li>
+                            <li class="item"><a href="27-adcard-slider.html" target="preview" class="clickableLink">27
+                                    Adcard Cum
+                                    Drag
+                                    Slider</a>
+                            </li>
+                            <li class="item"><a href="28-beauty-products.html" target="preview" class="clickableLink">28
+                                    Beauty
+                                    Products
+                                    Catelogue</a>
+                            </li>
+                            <li class="item"><a href="29-parallax-galaxy.html" target="preview" class="clickableLink">29
+                                    Parallax
+                                    Galaxy
+                                    Slider</a>
+                            </li>
+                            <li class="item"><a href="30-cube-with-timer.html" target="preview" class="clickableLink">30
+                                    3D Cube with
+                                    Countdown Timer</a>
+                            </li>
+                            <li class="item"><a href="31-flowers-reveal.html" target="preview" class="clickableLink">31
+                                    Flowers
+                                    Reveal
+                                    Photo</a>
+                            </li>
+                            <li class="item"><a href="32-diwali-lights.html" target="preview" class="clickableLink">32
+                                    Diwali Lights
+                                    Components</a>
+                            </li>
+                            <li class="item"><a href="33-single-step-poll-survey.html" target="preview"
+                                    class="clickableLink">33
+                                    Signle
+                                    Step Poll / Survey</a>
+                            </li>
+                            <li class="item"><a href="34-multi-step-poll-survey.html" target="preview"
+                                    class="clickableLink">34 Multi
+                                    Step Poll / Survey</a>
+                            </li>
+                            <li class="item"><a href="35-scratch-reveal-video.html" target="preview"
+                                    class="clickableLink">35 Scratch
+                                    Reveal Video</a>
+                            </li>
+                            <li class="item"><a href="36-split-content-slider.html" target="preview"
+                                    class="clickableLink">36 Split
+                                    Content Slider</a>
+                            </li>
+                            <li class="item"><a href="37-product-to-show.html" target="preview" class="clickableLink">37
+                                    Product To
+                                    Show</a>
+                            </li>
+                            <li class="item"><a href="38-get-started.html" target="preview" class="clickableLink">38 Get
+                                    Started
+                                    Slider</a>
+                            </li>
+                            <li class="item"><a href="39-social-media-stories.html" target="preview"
+                                    class="clickableLink">39 Social
+                                    Media Stories - Slider</a>
+                            </li>
+                            <li class="item"><a href="40-products-glossmorphism-card.html" target="preview"
+                                    class="clickableLink">40
+                                    Products Glass Morphism Cards</a>
+                            </li>
+                            <li class="item"><a href="41-stories-slider.html" target="preview" class="clickableLink">41
+                                    Stories Slider Concept</a>
+                            </li>
+                            <li class="item"><a href="42-new-countdown-timer.html" target="preview"
+                                    class="clickableLink">42
+                                    CD Timer with Target Date & Time</a>
+                            </li>
+                        </div>
+
+                        <p style="display:none;">
+                            Interview Questions:
+
+                            1. Intrduce yourself?
+                            A. You need to tell something about your achievements, recognizations, your abilities, your
+                            strenths and about you & your family within short explanation. This is a very common
+                            question in any interview because, you only know well about yourself. So if you fail to give
+                            your introduction they(interviewwer) thought you are a common guy in the society. Be
+                            practical and convey yourself without any confusion. It should be very transparent and
+                            stright forward.
+
+
+                            2. What about the family?
+                            A. Sometimes this question may skipped by interviewer. If they asked then only you need to
+                            introduce about your family like your family background, ethics you follow as a family
+                            member, How you treat your family members and your love and effection with your family.
+                            About your siblings and elders. Answer should be minimal but more informative.
+
+
+                            3. What is your Design Process?
+                            A. This question is asked by interviewer because since you are a design background kind of
+                            profession. So they want to know how you plan your design process instead blindly dive into
+                            the design to do something. Your answer will play most important part in your interview.
+                            Most of the times your answer give clear picture about your role/plan of action on your job.
+
+                            Design Process need these below steps to follow. These steps outline a commonly used design
+                            process known as the "Design Thinking" process, which is a human-centered approach to
+                            problem-solving. Let's break down each step:
+
+                            (A). EMPATHISE
+                            This step involves understanding the needs, wants, and challenges of the people you are
+                            designing for. It's about putting yourself in the shoes of the user and gaining deep empathy
+                            for their experiences. This often involves activities such as interviews, observations, and
+                            immersing yourself in the user's environment to gather insights.
+
+                            (B). DEFINE
+                            In this step, you analyze and synthesize the information gathered during the EMPATHISE phase
+                            to define the core problems and challenges faced by the users. It's about reframing the
+                            problem in a human-centered way, focusing on the needs and aspirations of the users rather
+                            than jumping to solutions.
+
+                            (C). IDEATE
+                            Once you have a clear understanding of the problem, it's time to generate as many creative
+                            solutions as possible. This phase encourages brainstorming and thinking outside the box. The
+                            goal is to come up with a wide range of ideas without judgment, fostering creativity and
+                            innovation.
+
+                            (D). PROTOTYPE
+                            In this step, you start turning your ideas into tangible representations that can be shared
+                            and tested with others. Prototypes can take various forms, from simple sketches or mock-ups
+                            to more advanced prototypes depending on the complexity of the solution. The key is to
+                            create something quickly and cheaply to gather feedback and iterate.
+
+                            (E). TESTING
+                            Here, you gather feedback from users by testing your prototypes. This step is crucial for
+                            validating your ideas and ensuring that they meet the needs of the users. Testing allows you
+                            to identify strengths and weaknesses in your design and make improvements before moving
+                            forward.
+
+                            (F). IMPLEMENTATION
+                            Once you've refined your solution based on feedback from testing, it's time to bring it to
+                            life. Implementation involves scaling up your solution and integrating it into the real
+                            world. This may involve collaboration with stakeholders, refining the design based on
+                            further feedback, and planning for long-term sustainability.
+
+
+                            4. Explain about one of the challenges you faced in your recent projects? And how you solved
+                            it?
+                            5. What do you do. If a client give continuous negative feedback on your design/work even
+                            after so many iterations?
+                            6. Why did you looking for new Job? And why are you looking to Leave current
+                            organization/company?
+                            7. What are the strengths and weaknesses about you?
+                            8. If I give a chance to improvise our current website. How do you improve and what are the
+                            fallbacks you observed?
+                            9. What kind of clients you worked with so far? And explain one of your achievement?
+                            10. Explain some of the Design Fundamentals and How you inspired?
+                            11. May I know about your goals if you have any? If not why?
+                            12. Where do you look yourself by next 5 years?
+                            13. What are the expectations from this company?
+                            14. How do you rate yourself if I ask, from out of ten? And why?
+                            15. Do you have any questions to me?
+                            16.
+                        </p>
+
+                        <!-- Individual Campaigns -->
+                        <div id="individualLibrary">
+                            <h3>Individual Campaigns</h3>
+
+                            <li class="item"><a href="confetti-button.html" target="preview"
+                                    class="clickableLink">Confetti Button
+                                    onClick</a>
+                            </li>
+                            <li class="item"><a href="buttons.html" target="preview" class="clickableLink">Button
+                                    Styles</a>
+                            </li>
+                            <li class="item"><a href="text-animations.html" target="preview" class="clickableLink">Title
+                                    Animations</a>
+                            </li>
+                            <li class="item"><a href="change-light-color.html" target="preview"
+                                    class="clickableLink">Change Room
+                                    Lighting | Mixer</a>
+                            </li>
+                            <li class="item"><a href="greetings/greeting-card.html" target="preview"
+                                    class="clickableLink">Greeting
+                                    Cards</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/airtel/airtel-video-interaction.html"
+                                    target="preview" class="clickableLink">Airtel UI</a>
+                            </li>
+                            <li class="item"><a
+                                    href="individual campaigns/asian-paints-election-results/asian-paints.html"
+                                    target="preview" class="clickableLink">Asian Paints Election Results</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/havells/havells_html/zoom-card.html"
+                                    target="preview" class="clickableLink">Havells - 4 [Zoom Card Slider]</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/vivo mobile/vivo-mobile.html"
+                                    target="preview" class="clickableLink">Vivo Mobile UI</a>
+                            </li>
+                            <li class="item"><a
+                                    href="individual campaigns/dabur_source-files/dabur-HTML/dabur-spinwheel.html"
+                                    target="preview" class="clickableLink">Dabur Spin-Wheel UI</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/lg/lg_html/left-right-controls.html"
+                                    target="preview" class="clickableLink">LG UI</a>
+                            </li>
+                            <li class="item"><a
+                                    href="individual campaigns/mama-earth/mama-earth-html/left-right-controls.html"
+                                    target="preview" class="clickableLink">Mama Earth UI</a>
+                            </li>
+                            <li class="item"><a
+                                    href="individual campaigns/maruti-arena/maruti-arena-html/left-right-controls.html"
+                                    target="preview" class="clickableLink">Maruti Arena UI</a>
+                            </li>
+                            <li class="item"><a
+                                    href="individual campaigns/maruti-arena/maruti-arena-html/maruti-ertiga-story.html"
+                                    target="preview" class="clickableLink">Maruti Ertiga Story-board</a>
+                            </li>
+                            <li class="item"><a
+                                    href="individual campaigns/dominos-concepts/doinos-HTML/dominos-spinwheel.html"
+                                    target="preview" class="clickableLink">Dominos Pizza | Spin-Wheel</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/button-placement/button-placement.html"
+                                    target="preview" class="clickableLink">Button On Video - Animation</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/sensodyne/sensodyne-html/sensodyne.html"
+                                    target="preview" class="clickableLink">Sensodyne Paste Comparison</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/britannia-game/britannia-game-ui.html"
+                                    target="preview" class="clickableLink">Britannia - Tic Tac Toe Game</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/ikea/ikea-ui.html" target="preview"
+                                    class="clickableLink">Ikea
+                                    Concept</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/kfc/left-right-controls.html"
+                                    target="preview" class="clickableLink">KFC Controls Slider</a>
+                            </li>
+                            <li class="item active"><a
+                                    href="individual campaigns/honda-hornet-stories/honda-hornet-stories.html"
+                                    target="preview" class="clickableLink">Honda Hornet Story</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/mallcom/mallcom-products.html"
+                                    target="preview" class="clickableLink">Mallcom Products</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/infinix-mobiles/infinix-full-slider.html"
+                                    target="preview" class="clickableLink">Infinix Mobiles</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/asian-paints/asianpaints-full-slider.html"
+                                    target="preview" class="clickableLink">Asian Paints</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/forever_html/forever-slicebox.html"
+                                    target="preview" class="clickableLink">Forever Jewelry</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/bajaj/bajaj-zoom-card.html" target="preview"
+                                    class="clickableLink">Bajaj Auto</a>
+                            </li>
+                            <li class="item"><a
+                                    href="individual campaigns/bajaj/bajaj_pulsar_360_rotation/pulsar-360-rotation.html"
+                                    target="preview" class="clickableLink">Bajaj Pulsar 360 View</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/nsl-bambino-games/bambino-tic-tac-toe.html"
+                                    target="preview" class="clickableLink">Bambino Tic Tac Toe Game</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/nsl-bambino-games/nsl-tic-tac-toe.html"
+                                    target="preview" class="clickableLink">NSL Infra Tic Tac Toe Game</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/hdfc/hdfc-zoom-card.html" target="preview"
+                                    class="clickableLink">HDFC
+                                    Bank</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/myntra-cdtimer/countdown-timer.html"
+                                    target="preview" class="clickableLink">Myntra Fashion Sale - CD Timer</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/valentines day/valentines-day.html"
+                                    target="preview" class="clickableLink">Instamart - Valentine's Day Gift</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/swiggy-instamart/swiggy-instamart.html"
+                                    target="preview" class="clickableLink">Swiggy Instamart Concept</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/hafele/hafele-zoom-card.html"
+                                    target="preview" class="clickableLink">Hafele Kitchen Appliances</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/lic/lic-zoom-card.html" target="preview"
+                                    class="clickableLink">LIC
+                                    Of India</a>
+                            </li>
+                            <li class="item"><a
+                                    href="individual campaigns/swiggy-valentines-cart/swiggy-valentines-cart.html"
+                                    target="preview" class="clickableLink">Swiggy Valentines Cart</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/marico/marico-zoom-card.html"
+                                    target="preview" class="clickableLink">Marico</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/giva-valentines-day/giva-valentines-day.html"
+                                    target="preview" class="clickableLink">Giva Jewellery - Valentines Special</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/havells-lloyd-ac/hav-lloyd-ac.html"
+                                    target="preview" class="clickableLink">Havells - LLOYD AC</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/nova-ivf/nova-ivf.html" target="preview"
+                                    class="clickableLink">Nova
+                                    IVF</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/vijay-sale/vijay-sale.html" target="preview"
+                                    class="clickableLink">Vijay Sale - Store</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/homelane/homelane-before-after.html"
+                                    target="preview" class="clickableLink">Homelane Comparison Slider</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/allensolly/allensolly.html" target="preview"
+                                    class="clickableLink">Allensolly Store</a>
+                            </li>
+                            <li class="item"><a
+                                    href="individual campaigns/ultratech-cement/ultratech-cement-before-after.html"
+                                    target="preview" class="clickableLink">Ultratech Cement</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/yamaha-mt3/yamaha-mt3.html" target="preview"
+                                    class="clickableLink">Yamaha MT-3</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/orro-jewellery/orro-jewellery.html"
+                                    target="preview" class="clickableLink">Orro Jewellery</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/unacademy/unacademy-quiz.html"
+                                    target="preview" class="clickableLink">Unacademy Quiz</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/pari-match/pari-match-game.html"
+                                    target="preview" class="clickableLink">Pari Match Game</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/croma-store/croma-store-zoom-card.html"
+                                    target="preview" class="clickableLink">Croma Store</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/angelone-gif/angelone-gif.html"
+                                    target="preview" class="clickableLink">AngelOne Gif UI</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/motilal-oswal/motilal-oswal.html"
+                                    target="preview" class="clickableLink">Motilal Oswal</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/niloufer-cafe/niloufer-cafe.html"
+                                    target="preview" class="clickableLink">Niloufer Cafe</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/niloufer-cafe/niloufer-cafe-wiper.html"
+                                    target="preview" class="clickableLink">Niloufer Cafe Wiper Slider</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/upstox-gif/upstox-gif.html" target="preview"
+                                    class="clickableLink">Upstox MF</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/malabar-gold/malabar-gold.html"
+                                    target="preview" class="clickableLink">Malabar Gold</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/reliance-digital/reliance-digital.html"
+                                    target="preview" class="clickableLink">Reliance Digital</a>
+                            </li>
+                            <li class="item"><a
+                                    href="individual campaigns/asianpaints-before-after/asianpaints-before-after.html"
+                                    target="preview" class="clickableLink">Asian Paints Water Proofing</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/maruti-sales-gif/maruti-sales-gif.html"
+                                    target="preview" class="clickableLink">Maruti Sales Graph</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/caratlane-jewellery/caratlane-jewellery.html"
+                                    target="preview" class="clickableLink">CaratLane Jewellery</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/freedom-oil-game-html/freedom-oil-game.html"
+                                    target="preview" class="clickableLink">Freedom Oil Game</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/icc-t20/icc-t20.html" target="preview"
+                                    class="clickableLink">ICC Men's T20 Sqad</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/3roses-tea/3roses-tea.html" target="preview"
+                                    class="clickableLink">3Roses Tea</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/nescafe/nescafe.html" target="preview"
+                                    class="clickableLink">Nescafe Coffee</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/birla-paints/birla-opus-before-after.html"
+                                    target="preview" class="clickableLink">Birla Opus Paints</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/fabindia-sale/fabindia-sale.html"
+                                    target="preview" class="clickableLink">Fabindia Summer Sale</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/pantaloons-sale/pantaloons-sale.html"
+                                    target="preview" class="clickableLink">Pantaloons Summer
+                                    Sale</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/maha-cement/maha-cement.html"
+                                    target="preview" class="clickableLink">Maha Cement</a>
+                            </li>
+                            <li class="item"><a href="individual campaigns/hella-lights/hella-lights-before-after.html"
+                                    target="preview" class="clickableLink">Hella Lights</a>
+                            </li>
+                        </div>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="preview">
+                <h4 id="targetDiv">Preview Pane</h4>
+                <iframe name="preview"
+                    src="individual campaigns/honda-hornet-stories/honda-hornet-stories.html"></iframe>
+            </div>
+        </div>
+
+        <script src="js/jquery.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.getElementById('individualLibrary').style.display = 'block';
+
+                document.getElementById('uilibrary').addEventListener('click', function () {
+                    document.getElementById('individualLibrary').style.display = 'block';
+                    document.getElementById('modalLibrary').style.display = 'none';
+                });
+
+                document.getElementById('demos').addEventListener('click', function () {
+                    document.getElementById('individualLibrary').style.display = 'none';
+                    document.getElementById('modalLibrary').style.display = 'block';
+                });
+
+                var items = document.querySelectorAll('.demos .item');
+                items.forEach(function (item) {
+                    item.addEventListener('click', function (event) {
+                        event.preventDefault();
+
+                        items.forEach(function (itm) {
+                            itm.classList.remove('active');
+                        });
+
+                        this.classList.add('active');
+
+                        var iframeSrc = this.querySelector('a').getAttribute('href');
+                        $("iframe[name='preview']").attr("src", iframeSrc);
+                    });
+                });
+            });
+
+            const targetDiv = document.getElementById("targetDiv");
+            const clickableLinks = document.querySelectorAll(".clickableLink");
+            clickableLinks.forEach(function (link) {
+                link.addEventListener("click", function (event) {
+                    targetDiv.textContent = this.textContent;
+                });
+            });
+
+            $(function () {
+                $("<select />").appendTo("nav");
+                $("<option />", {
+                    "selected": "selected",
+                    "value": "",
+                    "text": "Choose An Animation"
+                }).appendTo("nav select");
+
+                $("nav a").each(function () {
+                    var el = $(this);
+                    $("<option />", {
+                        "value": el.attr("href"),
+                        "text": el.text()
+                    }).appendTo("nav select");
+                });
+
+                $("nav select").change(function () {
+                    var selectedOption = $(this).find("option:selected").val();
+                    if (selectedOption) {
+                        $("iframe[name='preview']").attr("src", selectedOption);
+                    }
+                });
+            });
+
+            function myFunction() {
+                var input, filter, ul, li, a, i, txtValue, noResults;
+                input = document.getElementById("filterSearch");
+                filter = input.value.toUpperCase();
+                ul = document.getElementById("mainNav");
+                li = ul.getElementsByTagName("li");
+                noResults = document.getElementById("noResults");
+                let resultsFound = false;
+
+                for (i = 0; i < li.length; i++) {
+                    a = li[i].getElementsByTagName("a")[0];
+                    txtValue = a.textContent || a.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        li[i].style.display = "";
+                        resultsFound = true;
+                    } else {
+                        li[i].style.display = "none";
+                    }
+                }
+
+                if (resultsFound) {
+                    noResults.style.display = "none";
+                } else {
+                    noResults.style.display = "block";
+                }
+            }
+
+            function clearSearch() {
+                var input, ul, li, noResults;
+                input = document.getElementById("filterSearch");
+                ul = document.getElementById("mainNav");
+                li = ul.getElementsByTagName("li");
+                noResults = document.getElementById("noResults");
+                input.value = "";
+                noResults.style.display = "none";
+
+                for (var i = 0; i < li.length; i++) {
+                    li[i].style.display = "";
+                }
+            }
+
+            $(document).ready(function () {
+                $(".bounce").css("background-image", 'url(' + imgDataURI + ')');
+            })
+
+            var imgDataURI = "data:image/png;base64,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";
+        </script>
+    </body>
+
+</html>

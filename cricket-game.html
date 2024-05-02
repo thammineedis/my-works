@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cricket Game | Dynamic Play</title>
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body,
+            html {
+                height: 100%;
+                line-height: 20px;
+                scroll-behavior: smooth;
+                font-family: 'Rubik', sans-serif;
+                font-size: 16px;
+            }
+
+            #outer {
+                width: 100%;
+                align-items: center;
+                height: 100vh;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .container {
+                text-align: center;
+                width: 100%;
+                height: 100%;
+                margin: 0 auto;
+                position: relative;
+                padding: 20px;
+            }
+
+            .cricket-field {
+                width: 100%;
+                height: 75%;
+                margin: 0 auto;
+            }
+
+            .scoreboard {
+                margin-top: 20px;
+            }
+
+            button {
+                margin-top: 20px;
+            }
+
+            .batsman img {
+                width: 150px;
+                height: 150px;
+            }
+
+            #hit {
+                background: #fefefe url(cricket-images/bat.png) no-repeat center center;
+                width: 42px;
+                height: 42px;
+                background-size: 26px auto;
+                border-radius: 100%;
+                border: 1px solid rgba(0, 0, 0, 0.3);
+                padding: 6px;
+                text-indent: -9999px;
+                cursor: pointer;
+                box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+            }
+
+            #hit:active {
+                box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+            }
+
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 2;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 1080px;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0);
+            }
+
+            .modal-content {
+                margin: 0 auto;
+                padding: 25px;
+                width: auto;
+                min-width: 300px;
+                height: auto;
+                text-align: center;
+                background: none;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .close {
+                color: #f00;
+                margin: 12px 20px 0 0;
+                font-size: 36px;
+                font-weight: normal;
+                cursor: pointer;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            #balls-list {
+                margin: 1em auto;
+                padding: 0;
+                text-align: center;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: .35em;
+                width: fit-content;
+            }
+
+            #balls-list li {
+                width: 50px;
+                height: 50px;
+                line-height: 100%;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+                font-weight: bold;
+                color: rgb(0, 145, 19);
+                border: 1px solid rgba(0, 0, 0, 0.3);
+                background-color: rgba(0, 0, 0, 0.05);
+                border-radius: 100%;
+            }
+
+            #balls-list li img {
+                max-width: 60%;
+                margin: 0 auto;
+            }
+
+            .hidden {
+                display: none !important;
+            }
+
+            canvas {
+                position: fixed;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+                z-index: 1 !important;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="cricket-field">
+                <div class="batsman">
+                    <img id="action-pose" src="cricket-images/action-pose0.png" alt="Action Pose">
+                </div>
+                <div class="bowler"></div>
+                <div class="ball"></div>
+            </div>
+            <div class="scoreboard">
+                <span id="score">Total Score: 0</span>
+                <span id="balls" style="display: none;">Balls: 0</span>
+                <ul id="balls-list">
+                    <li><img src="cricket-images/ball.png" alt="Ball"></li>
+                    <li><img src="cricket-images/ball.png" alt="Ball"></li>
+                    <li><img src="cricket-images/ball.png" alt="Ball"></li>
+                    <li><img src="cricket-images/ball.png" alt="Ball"></li>
+                    <li><img src="cricket-images/ball.png" alt="Ball"></li>
+                    <li><img src="cricket-images/ball.png" alt="Ball"></li>
+                </ul>
+            </div>
+            <button id="hit">Hit</button>
+        </div>
+
+        <!-- Modal -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p id="final-score"></p>
+                <button id="play-again">Play Again</button>
+            </div>
+        </div>
+
+        <!-- Confetti effect once finished 6 balls along with final score -->
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.1.2/dist/confetti.browser.min.js"></script>
+
+        <!-- Game Main Controls Declaration Script -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('action-pose').src = 'cricket-images/action-pose0.png';
+            });
+
+            let balls = 0;
+            let totalScore = 0;
+
+            document.getElementById('hit').addEventListener('click', () => {
+                balls++;
+                document.getElementById('balls').innerText = 'Balls: ' + balls;
+                let action = Math.floor(Math.random() * 6) + 1;
+
+                document.getElementById('action-pose').src = 'cricket-images/action-pose' + action + '.png';
+
+                setTimeout(() => {
+                    document.getElementById('action-pose').src = 'cricket-images/action-pose0.png';
+                }, 1000);
+
+                setTimeout(() => {
+                    let score = 0;
+                    switch (action) {
+                        case 1:
+                            score += 0;
+                            break;
+                        case 2:
+                            score += 1;
+                            break;
+                        case 3:
+                            score += 2;
+                            break;
+                        case 4:
+                            score += 3;
+                            break;
+                        case 5:
+                            score += 4;
+                            break;
+                        case 6:
+                            score += 6;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    totalScore += score;
+                    document.getElementById('score').innerText = 'Total Score: ' + totalScore;
+                    document.getElementById('balls-list').children[balls - 1].innerHTML = score;
+
+                    if (balls === 6) {
+                        document.getElementById('final-score').innerText = 'Your total score is: ' + totalScore;
+                        showModal();
+                    }
+                }, 1200);
+            });
+
+            function resetGame() {
+                balls = 0;
+                totalScore = 0;
+                document.getElementById('balls').innerText = 'Balls: ' + balls;
+                document.getElementById('action-pose').src = 'cricket-images/action-pose0.png';
+
+                let scoreCards = document.getElementById('balls-list').getElementsByTagName('li');
+                for (let i = 0; i < scoreCards.length; i++) {
+                    scoreCards[i].innerHTML = '<img src="cricket-images/ball.png" alt="Ball">';
+                }
+                document.getElementById('score').innerText = 'Total Score: 0';
+                document.getElementById('modal').style.display = 'none';
+                stopConfetti();
+            }
+
+            function showModal() {
+                document.getElementById('modal').style.display = 'block';
+                startConfetti();
+            }
+
+            document.getElementsByClassName('close')[0].addEventListener('click', () => {
+                document.getElementById('modal').style.display = 'none';
+                resetGame();
+            });
+
+            document.getElementById('play-again').addEventListener('click', () => {
+                document.getElementById('modal').style.display = 'none';
+                resetGame();
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target == document.getElementById('modal')) {
+                    document.getElementById('modal').style.display = 'none';
+                }
+            });
+
+
+            // Confetti configuration
+            var end;
+            var colors = ['#000', '#ff0000', '#f3f3f3'];
+            var container = document.getElementById('modal');
+            var observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (!mutation.target.classList.contains('hidden')) {
+                        startConfetti();
+                    }
+                });
+            });
+
+            observer.observe(container, { attributes: true });
+
+            function startConfetti() {
+                container.style.display = 'flex';
+                end = Date.now() + (3 * 100);
+                animateConfetti();
+            }
+
+            function animateConfetti() {
+                confetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 100,
+                    origin: {
+                        x: 0
+                    },
+                    colors: colors,
+                    disableForReducedMotion: true
+                });
+                confetti({
+                    particleCount: 3,
+                    angle: 145,
+                    spread: 100,
+                    origin: {
+                        x: 1
+                    },
+                    colors: colors,
+                    disableForReducedMotion: true
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(animateConfetti);
+                }
+            }
+
+            function stopConfetti() {
+                container.style.display = 'none';
+                observer.disconnect();
+            }
+        </script>
+    </body>
+
+</html>

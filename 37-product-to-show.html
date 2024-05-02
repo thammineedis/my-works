@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Show Animation</title>
+
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="css/product-to-show.css">
+    </head>
+
+    <body>
+        <div id="container">
+            <div class="product fixed">
+                <img src="images/product1.png" alt="Product 1">
+            </div>
+            <div class="product">
+                <img src="images/product2.png" alt="Product 2">
+            </div>
+            <div class="product">
+                <img src="images/product3.png" alt="Product 3">
+            </div>
+            <div class="product frontProduct">
+                <img src="images/product4.png" alt="Product 4">
+            </div>
+
+            <!-- Mobile Top -->
+            <div class="mobTop">
+                <img src="images/mi-logo.png" alt="" class="logo">
+                <img src="images/mi-top.png" alt="">
+            </div>
+
+            <!-- Stage Animation -->
+            <div class="stage hidden"></div>
+        </div>
+
+        <!-- Swiping Hand Icon Animation -->
+        <div id="swipe">
+            <div class="path"></div>
+            <div class="hand-icon"></div>
+            <h6>Drag Left To View Product</h6>
+        </div>
+
+        <!-- Curtain Effect -->
+        <div class="rxWorld">
+            <section class="rnOuter">
+                <div class='rnInner' id="curtain">
+                    <div class='rnUnit'></div>
+                    <div class='rnUnit'></div>
+                    <div class='rnUnit'></div>
+                    <div class='rnUnit'></div>
+                    <div class='rnUnit'></div>
+                    <div class='rnUnit'></div>
+                    <div class='rnUnit'></div>
+                    <div class='rnUnit'></div>
+                    <div class='rnUnit'></div>
+                    <div class='rnUnit'></div>
+                    <p>
+                        <img src="images/click_cursor.svg" alt="">
+                        <span>Click anywhere to reveal curtain</span>
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+        <script>
+
+            // onClick to reveal Curtain
+            document.getElementById('curtain').addEventListener('click', function () {
+                this.classList.toggle('open');
+            });
+
+
+            // Hide Stage Until Animation start
+            setTimeout(function () {
+                document.querySelector('.stage').classList.remove('hidden');
+            }, 5000);
+
+
+            // TimeOut for Hint Animation
+            var swipeDiv = document.getElementById('swipe');
+            var hideOnClickDiv = document.getElementById('container');
+
+            hideOnClickDiv.addEventListener('click', function () {
+                swipeDiv.style.opacity = 0;
+                setTimeout(function () {
+                    swipeDiv.style.display = 'none';
+                }, 700);
+            });
+
+            // Swiping items declaration
+            let currentProductIndex = 0;
+            const container = document.getElementById('container');
+            const products = document.querySelectorAll('.product');
+
+            function showNextProduct() {
+                if (currentProductIndex < products.length) {
+                    products[currentProductIndex].style.transform = 'translateX(0)';
+                    currentProductIndex++;
+                }
+            }
+
+            function removeProduct() {
+                if (currentProductIndex > 0) {
+                    currentProductIndex--;
+                    products[currentProductIndex].style.transform = 'translateX(100vw)';
+                }
+            }
+
+            const hammer = new Hammer(container, { threshold: 10, velocity: 0.1 });
+            hammer.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
+
+            hammer.on('swipeleft', showNextProduct);
+            hammer.on('swiperight', removeProduct);
+        </script>
+
+        <script type="module">
+            // Confetti Onclick
+            import confetti from "https://cdn.jsdelivr.net/npm/canvas-confetti@1/+esm";
+
+            function onClick() {
+                confetti({
+                    particleCount: 400,
+                    spread: 60
+                });
+            };
+
+            // Assuming 'container' is your slider element
+            var sliderContainer = document.getElementById('container');
+
+            sliderContainer.addEventListener('transitionend', function () {
+                if (isLastProduct()) {
+                    onClick();
+                }
+            });
+
+            function isLastProduct() {
+                // Assuming your products are child elements of the 'container'
+                return currentProductIndex === products.length - 0;
+            }
+        </script>
+
+    </body>
+
+</html>

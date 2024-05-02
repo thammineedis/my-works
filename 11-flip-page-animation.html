@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Flip Page Effect Animation</title>
+
+		<!-- Page styles declaration -->
+		<link rel="stylesheet" href="css/flip-animation.css">
+	</head>
+
+	<body>
+
+		<div id="flipbook">
+			<div>
+				<img src="images/1.jpg" alt="Page-1" title="page-1" />
+				<div class="content">
+					<h3>1. Red Ferrari</h3>
+					<button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+				</div>
+			</div>
+			<div>
+				<img src="images/2.jpg" alt="Page-2" title="page-2" />
+				<div class="content">
+					<h3>2. Blue BMW</h3>
+					<button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+				</div>
+			</div>
+			<div>
+				<img src="images/3.jpg" alt="Page-3" title="page-3" />
+				<div class="content">
+					<h3>3. Black Hyundai</h3>
+					<button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+				</div>
+			</div>
+			<div>
+				<img src="images/4.jpg" alt="Page-4" title="page-4" />
+				<div class="content">
+					<h3>4. Gray Toyota</h3>
+					<button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+				</div>
+			</div>
+			<div>
+				<img src="images/5.jpg" alt="Page-5" title="page-5" />
+				<div class="content">
+					<h3>5. Orange Bugatti</h3>
+					<button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+				</div>
+			</div>
+			<div>
+				<img src="images/6.jpg" alt="Page-6" title="page-6" />
+				<div class="content">
+					<h3>6. Tomoto Red Porsche</h3>
+					<button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+				</div>
+			</div>
+			<div>
+				<img src="images/7.jpg" alt="Page-7" title="page-7" />
+				<div class="content">
+					<h3>7. White BMW</h3>
+					<button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+				</div>
+			</div>
+		</div>
+
+
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/turn.js"></script>
+		<script type="text/javascript">
+			$(window).ready(function () {
+				$('#flipbook').turn({
+					display: 'single',
+					acceleration: true,
+					disable: true
+
+				});
+			});
+
+			$(window).bind('keydown', function (e) {
+
+				if (e.keyCode == 37)
+					$('#flipbook').turn('previous');
+				else if (e.keyCode == 39)
+					$('#flipbook').turn('next');
+			});
+		</script>
+
+	</body>
+
+</html>

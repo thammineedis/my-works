@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Scratch Card</title>
+        <!-- Design by groundtutorial.com -->
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+        <!-- Stylesheet -->
+        <link rel="stylesheet" href="css/scratch-reveal-video.css">
+    </head>
+
+    <body>
+        <div class="scratchContainer">
+            <div class="base">
+                <div class="videoArea">
+                    <iframe width="100%" height="100%" src="images/lloyd-video.mp4?autoplay=0" frameborder="0"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+            <canvas id="scratch" width="1000" height="500" style="width: 100%; height: 100%;"></canvas>
+            <h1 id="hint">
+                <span>S</span><span>c</span><span>r</span><span>a</span><span>t</span><span>c</span><span>h</span><span>&nbsp;</span><span>H</span><span>e</span><span>r</span><span>e</span>
+            </h1>
+        </div>
+
+        <!-- Noice Filter -->
+        <svg>
+            <filter id='noiseFilter'>
+                <feTurbulence type='fractalNoise' baseFrequency='0.6' stitchTiles='stitch' />
+                <feColorMatrix in="colorNoise" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0" />
+                <feComposite operator="in" in2="SourceGraphic" result="monoNoise" />
+                <feBlend in="SourceGraphic" in2="monoNoise" mode="screen" />
+            </filter>
+
+        </svg>
+
+        <!-- Scratch Card Script Defined Here -->
+        <script>
+            // TimeOut for Animation
+            setTimeout(function () {
+                document.getElementById('hint').className = 'getOut';
+            }, 6900);
+
+            // ScratchCard Script from here...!
+            let canvas = document.getElementById("scratch");
+            let context = canvas.getContext("2d");
+            let percentRevealed = 0;
+            let isRevealing = false;
+
+            const init = () => {
+                let gradientColor = context.createLinearGradient(0, 0, 135, 135);
+                gradientColor.addColorStop(0, "#001ba1");
+                gradientColor.addColorStop(1, "#001ba1");
+                context.fillStyle = gradientColor;
+                context.fillRect(0, 0, 1000, 500);
+            };
+
+            //initially mouse X and mouse Y positions are 0
+            let mouseX = 0;
+            let mouseY = 0;
+            let isDragged = false;
+
+            //Events for touch and mouse
+            let events = {
+                mouse: {
+                    down: "mousedown",
+                    move: "mousemove",
+                    up: "mouseup",
+                },
+                touch: {
+                    down: "touchstart",
+                    move: "touchmove",
+                    up: "touchend",
+                },
+            };
+
+            let deviceType = "";
+
+            //Detech touch device
+            const isTouchDevice = () => {
+                try {
+                    //We try to create TouchEvent. It would fail for desktops and throw error.
+                    document.createEvent("TouchEvent");
+                    deviceType = "touch";
+                    return true;
+                } catch (e) {
+                    deviceType = "mouse";
+                    return false;
+                }
+            };
+
+            //Get left and top of canvas
+            let rectLeft = canvas.getBoundingClientRect().left;
+            let rectTop = canvas.getBoundingClientRect().top;
+
+            //Exact x and y position of mouse/touch
+            const getXY = (e) => {
+                mouseX = (!isTouchDevice() ? e.pageX : e.touches[0].pageX) - rectLeft;
+                mouseY = (!isTouchDevice() ? e.pageY : e.touches[0].pageY) - rectTop;
+            };
+
+            isTouchDevice();
+            //Start Scratch
+            canvas.addEventListener(events[deviceType].down, (event) => {
+                isDragged = true;
+                //Get x and y position
+                getXY(event);
+                scratch(mouseX, mouseY);
+            });
+
+            //mousemove/touchmove
+            canvas.addEventListener(events[deviceType].move, (event) => {
+                if (!isTouchDevice()) {
+                    event.preventDefault();
+                }
+                if (isDragged) {
+                    getXY(event);
+                    scratch(mouseX, mouseY);
+                }
+            });
+
+            //stop drawing
+            canvas.addEventListener(events[deviceType].up, () => {
+                isDragged = false;
+            });
+
+            //If mouse leaves the square
+            canvas.addEventListener("mouseleave", () => {
+                isDragged = false;
+            });
+
+            const scratch = (x, y) => {
+                if (percentRevealed < 60) {
+                    context.globalCompositeOperation = "destination-out";
+                    context.beginPath();
+                    context.arc(x, y, 80, 0, 2 * Math.PI);
+                    context.fill();
+
+                    let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    let totalPixels = canvas.width * canvas.height;
+                    let clearedPixels = 0;
+                    for (let i = 0; i < imageData.data.length; i += 4) {
+                        if (imageData.data[i + 3] === 0) {
+                            clearedPixels++;
+                        }
+                    }
+                    percentRevealed = (clearedPixels / totalPixels) * 100;
+                } else if (!isRevealing) {
+                    isRevealing = true;
+                    revealRemaining();
+                }
+            };
+
+            const revealRemaining = () => {
+                let alpha = 1; // Initial alpha value for fade-out
+
+                const fadeOut = () => {
+                    if (alpha > 0) {
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        context.globalAlpha = alpha;
+                        context.drawImage(canvas, 0, 0);
+                        alpha -= 0.9; // Adjust the speed of the fade-out by changing this value
+                        requestAnimationFrame(fadeOut);
+                    } else {
+                        isRevealing = false;
+                        document.querySelector('.videoArea').style.zIndex = 3;
+                        document.querySelector('#scratch').style.zIndex = -1;
+                    }
+                };
+
+                fadeOut();
+            };
+
+            window.onload = init();
+        </script>
+    </body>
+
+</html>

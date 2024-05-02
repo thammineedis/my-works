@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>General Practices</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+            html {
+                height: 100%;
+            }
+
+            body {
+                font-family: "Playfair Display", serif;
+                font-optical-sizing: auto;
+                font-weight: 500;
+                color: #333;
+                font-size: 20px;
+                line-height: 32px;
+            }
+
+            .box {
+                width: 500px;
+                height: 400px;
+                background: #ebebeb;
+                color: #333;
+                padding: 30px;
+                border: 6px solid red;
+            }
+
+            #grad1 {
+                height: 300px;
+                background-color: red;
+                background-image: repeating-linear-gradient(red, yellow 10%, green 20%);
+            }
+
+            #grad2 {
+                height: 300px;
+                background-color: red;
+                background-image: repeating-linear-gradient(45deg, red, yellow 7%, green 10%);
+            }
+
+            #grad3 {
+                height: 300px;
+                background-color: red;
+                background-image: repeating-linear-gradient(190deg, red, yellow 7%, green 10%);
+            }
+
+            #grad4 {
+                height: 300px;
+                background-color: red;
+                background-image: repeating-linear-gradient(90deg, red, yellow 7%, green 10%);
+            }
+
+            #grad5 {
+                height: 300px;
+                background-color: red;
+                background-image: repeating-linear-gradient(45deg, red 0px, red 10px, yellow 10px, yellow 20px);
+            }
+
+
+            /* Grid Container Styles */
+            .grid-container {
+                display: grid;
+                grid-template-columns: 150px 250px 150px;
+                border: 4px solid rgb(230, 125, 76);
+                width: 800px;
+            }
+
+            .grid-container>* {
+                background-color: rgba(120, 201, 117, 0.4);
+                border-radius: 5px;
+                padding: 10px;
+            }
+
+            /* ustom Radios Declaration */
+            .customRadios {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 1.5em;
+                padding: 2em 1em;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+                margin: 1em 0;
+            }
+
+            .customRadios .radioSet {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+            }
+
+            .customRadios .radioSet input {
+                appearance: none;
+                -webkit-appearance: none;
+                opacity: 0;
+                visibility: hidden;
+                position: absolute;
+                inset: 0;
+                border: none;
+            }
+
+            .customRadios .radioSet label {
+                position: relative;
+                cursor: pointer;
+                font-size: 26px;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: .4em;
+            }
+
+            .customRadios .radioSet label span {
+                width: auto;
+                height: 24px;
+                border-radius: 20px;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+                background-color: transparent;
+                position: relative;
+                padding: 3px 30px;
+                transition: all .75s ease;
+            }
+
+            .customRadios .radioSet label span::before {
+                position: absolute;
+                content: '';
+                width: 24px;
+                height: 24px;
+                border-radius: 100%;
+                background-color: rgb(0, 0, 0);
+                top: 50%;
+                left: 3px;
+                transform: translate(0, -50%);
+                transition: all .75s ease;
+                z-index: 2;
+            }
+
+            .customRadios .radioSet label span::after {
+                position: absolute;
+                content: 'Off';
+                text-transform: uppercase;
+                width: fit-content;
+                height: fit-content;
+                font-size: 11px;
+                font-weight: bold;
+                top: 50%;
+                text-align: right;
+                right: 3px;
+                transform: translate(0, -50%);
+                transition: all 1s ease;
+                z-index: 1;
+            }
+
+            .customRadios .radioSet input:checked~label span::after {
+                content: 'On';
+                text-align: left;
+                color: #fff;
+                right: auto;
+                transform: translate(-100%, -50%);
+                margin-left: -7px;
+            }
+
+            .customRadios .radioSet input:checked~label span::before {
+                transform: translate(100%, -50%);
+                background-color: #fff;
+                margin-left: 7px;
+            }
+
+            .customRadios .radioSet input:checked~label span {
+                background: linear-gradient(to right, #4400ff 0%, #0044ff 50%, #4400ff 100%);
+                border-color: #4400ff;
+            }
+
+            .customRadios .radioSet input:checked~label {
+                color: #4400ff;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Custom Radios -->
+        <div class="customRadios">
+            <div class="radioSet">
+                <input type="radio" name="radio" id="yes">
+                <label for="yes"><span></span> <small>Yes, I agree</small></label>
+            </div>
+            <div class="radioSet">
+                <input type="radio" name="radio" id="no">
+                <label for="no"><span></span> <small>No, I object</small></label>
+            </div>
+        </div>
+
+        <div class="grid-container">
+            <div>First div element</div>
+            <div>Second dev element</div>
+            <div>Third div element</div>
+            This is a normal text <span>with a span element in the middle</span>This
+            is another normal text but do not contain span element.
+        </div>
+        This string of text follows the grid.
+
+        <div class="box">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque, modi perferendis ipsam necessitatibus illum
+            minima ut eligendi eveniet doloremque quos rem fugit. Atque rerum dicta dolorem libero at nam tenetur.
+        </div>
+
+        <h1>Hey, I am No. 1 heading Tag..!</h1>
+        <h2>Hey, I am No. 2 heading Tag..!</h2>
+        <h3>Hey, I am No. 3 heading Tag..!</h3>
+        <h4>Hey, I am No. 4 heading Tag..!</h4>
+        <h5>Hey, I am No. 5 heading Tag..!</h5>
+        <h6>Hey, I am No. 6 heading Tag..!</h6>
+
+        <div id="grad1"></div>
+        <p>A repeating gradient on 45deg axe starting red and finishing green:</p>
+        <div id="grad2"></div>
+
+        <p>A repeating gradient on 190deg axe starting red and finishing green:</p>
+        <div id="grad3"></div>
+
+        <p>A repeating gradient on 90deg axe starting red and finishing green:</p>
+        <div id="grad4"></div>
+
+        <p>A repeating gradient on 45deg axe with solid stripes:</p>
+        <div id="grad5"></div>
+    </body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Parallax Galaxy</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+
+        <!-- Link Swiper's CSS -->
+        <link rel="stylesheet" href="css/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="css/parallax-galaxy.css">
+    </head>
+
+    <body>
+        <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper">
+            <div class="parallax-bg" data-swiper-parallax="-23%"></div>
+            <div class="swiper-wrapper" id="container">
+
+                <div class="swiper-slide">
+                    <div class="title" data-swiper-parallax="-1200">Dancing Girl</div>
+                    <img data-swiper-parallax="-600" src="images/obj4.png" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="title" data-swiper-parallax="-1200">Shoping Bags</div>
+                    <img src="images/obj1.png" alt="" data-swiper-parallax="-600">
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="title" data-swiper-parallax="-120">Premium Headphones</div>
+                    <img src="images/obj7.png" alt="" data-swiper-parallax="-600">
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="title" data-swiper-parallax="-120">Italian Sofa</div>
+                    <img src="images/obj3.png" alt="" data-swiper-parallax="-600">
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="title" data-swiper-parallax="-120">Smart Watches</div>
+                    <img src="images/obj5.png" alt="" data-swiper-parallax="-600">
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <!-- CTA Button -->
+        <button class="findBtn" onclick="location.href = 'https://www.google.co.in/';">Find More Now.!</button>
+
+        <!-- Swiper JS -->
+        <script src="js/swiper-bundle.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/TweenMax.min.js"></script>
+
+        <!-- Initialize Swiper -->
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                speed: 2000,
+                parallax: true,
+                loop: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+
+            // Mouse Parallax Effect
+
+            var rect = $('#container')[0].getBoundingClientRect();
+            var mouse = { x: 0, y: 0, moved: false };
+
+            $("#container").mousemove(function (e) {
+                mouse.moved = true;
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+            });
+
+            // Ticker event will be called on every frame
+            TweenLite.ticker.addEventListener('tick', function () {
+                if (mouse.moved) {
+                    parallaxIt("img", -50);
+                }
+                mouse.moved = false;
+            });
+
+            function parallaxIt(target, movement) {
+                TweenMax.to(target, 0.5, {
+                    x: (mouse.x - rect.width / 2) / rect.width * movement,
+                    y: (mouse.y - rect.height / 2) / rect.height * movement
+                });
+            }
+
+            $(window).on('resize scroll', function () {
+                rect = $('#container')[0].getBoundingClientRect();
+            })
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blur Behind Card | Carousel</title>
+
+        <link rel="stylesheet" href="css/materialize.min.css">
+        <link rel="stylesheet" href="css/blur-card.css">
+    </head>
+
+    <body>
+        <div class="carousel">
+            <a class="carousel-item" href="#one!">
+                <div class="testi card blue">
+                    <div class="img-area">
+                        <img src="images/blur1.jpg">
+                    </div>
+                    <div class="card-content white-text">
+                        <h3>Nature</h3>
+                        <button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+                    </div>
+                </div>
+            </a>
+            <a class="carousel-item" href="#two!">
+                <div class="testi card blue">
+                    <div class="img-area">
+                        <img src="images/blur2.jpg">
+                    </div>
+                    <div class="card-content white-text">
+                        <h3>Peacock</h3>
+                        <button onclick="location.href = 'https://www.amazon.co.in/';">Click Me</button>
+                    </div>
+                </div>
+            </a>
+            <a class="carousel-item" href="#three!">
+                <div class="testi card blue">
+                    <div class="img-area">
+                        <img src="images/blur6.jpg">
+                    </div>
+                    <div class="card-content white-text">
+                        <h3>Cars</h3>
+                        <button onclick="location.href = 'https://www.flipkart.com/';">Click Me</button>
+                    </div>
+                </div>
+            </a>
+            <a class="carousel-item" href="#four!">
+                <div class="testi card blue">
+                    <div class="img-area">
+                        <img src="images/blur3.jpg">
+                    </div>
+                    <div class="card-content white-text">
+                        <h3>Flowers</h3>
+                        <button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+                    </div>
+                </div>
+            </a>
+            <a class="carousel-item" href="#five!">
+                <div class="testi card blue">
+                    <div class="img-area">
+                        <img src="images/blur7.jpg">
+                    </div>
+                    <div class="card-content white-text">
+                        <h3>Car</h3>
+                        <button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+                    </div>
+                </div>
+            </a>
+            <a class="carousel-item" href="#six!">
+                <div class="testi card blue">
+                    <div class="img-area">
+                        <img src="images/blur5.jpg">
+                    </div>
+                    <div class="card-content white-text">
+                        <h3>Car</h3>
+                        <button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+                    </div>
+                </div>
+            </a>
+            <a class="carousel-item" href="#seven!">
+                <div class="testi card blue">
+                    <div class="img-area">
+                        <img src="images/blur4.jpg">
+                    </div>
+                    <div class="card-content white-text">
+                        <h3>Car</h3>
+                        <button onclick="location.href = 'https://www.google.co.in/';">Click Me</button>
+                    </div>
+                </div>
+            </a>
+
+
+        </div>
+
+        <div class="carousel-buttons">
+            <button class="carousel-prev"> &lt; </button>
+            <button class="carousel-next"> &gt; </button>
+        </div>
+
+        <!-- Scripts -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/materialize.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                var carousel = $('.carousel');
+                carousel.carousel();
+
+                $('.carousel-prev').click(function () {
+                    carousel.carousel('prev');
+                });
+
+                $('.carousel-next').click(function () {
+                    carousel.carousel('next');
+                });
+
+                carousel.on('click', '.carousel-control-next, .carousel-control-prev', function () {
+                    setTimeout(function () {
+                        var activeIndex = carousel.find('.carousel-item.active').index();
+                        carousel.find('.carousel-item').css({
+                            opacity: 0.7,
+                            filter: 'blur(3px)'
+                        });
+                        carousel.find('.carousel-item').eq(activeIndex).css({
+                            opacity: 1,
+                            filter: 'blur(0)'
+                        });
+                    }, 100);
+                });
+            });
+        </script>
+    </body>
+
+</html>

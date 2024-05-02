@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Glass Morphism Cards</title>
+
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="css/swiper.min.css">
+        <link rel="stylesheet" href="css/product-glassmorphism.css">
+    </head>
+
+    <body>
+
+        <div class="outer">
+            <div class="swiper-container">
+                <!-- swiper slides -->
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide slideOne">
+                        <div class="main">
+                            <div class="head">
+                                <h6>Starters</h6>
+                                <h1>Steak Melbourne</h1>
+                            </div>
+                            <div class="content">
+                                <div class="foodItem">
+                                    <img src="images/food1.png" alt="">
+                                </div>
+                                <div class="description">
+                                    <h2>Yummy yummy..</h2>
+                                    <h1>Steak Melbourne!!!</h1>
+                                </div>
+                                <div class="price">
+                                    <h3>₹ 199/- <span>onwards</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- !swiper slides -->
+            </div>
+        </div>
+
+        <!-- Swiping Hand Icon Animation -->
+        <div id="swipe">
+            <div class="path"></div>
+            <div class="hand-icon"></div>
+            <h6>Drag Left / Right</h6>
+        </div>
+
+        <!-- Page Scripts -->
+        <script src="js/swiper.js"></script>
+        <script>
+            var Swipes = new Swiper('.swiper-container', {
+                loop: true,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+            });
+
+            // TimeOut for Animation
+            setTimeout(function () {
+                document.getElementById('swipe').className = 'getOut';
+            }, 2500);
+        </script>
+    </body>
+
+</html>

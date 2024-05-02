@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Room Light Controller</title>
+        <style>
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                transition: background-color 0.5s ease;
+                /* Smooth transition for background color change */
+            }
+
+            #light-bulb {
+                width: 100px;
+                height: 100px;
+                background-color: #f1c40f;
+                /* Default color */
+                border-radius: 50%;
+                margin-bottom: 20px;
+                display: none;
+            }
+
+            #controls {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #color-bar {
+                width: 200px;
+                height: 10px;
+                background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f);
+                margin-bottom: 20px;
+                position: relative;
+                border-radius: 10px;
+            }
+
+            #color-handle {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #fff;
+                box-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+                top: 4px;
+                cursor: pointer;
+                transform: translate(-50%, -50%);
+            }
+
+            #brightness-slider {
+                width: 200px;
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="controls">
+            <div id="light-bulb"></div>
+
+            <div id="color-bar">
+                <div id="color-handle"></div>
+            </div>
+
+            <label for="brightness-slider">Brightness:</label>
+            <input type="range" id="brightness-slider" min="0" max="80" value="10">
+        </div>
+
+        <script>
+            const body = document.body;
+            const lightBulb = document.getElementById('light-bulb');
+            const colorBar = document.getElementById('color-bar');
+            const colorHandle = document.getElementById('color-handle');
+            const brightnessSlider = document.getElementById('brightness-slider');
+
+            function updateLight() {
+                const hue = (colorHandle.offsetLeft / colorBar.offsetWidth) * 360;
+                const saturation = 100;
+                const luminosity = brightnessSlider.value;
+
+                const selectedColor = `hsl(${hue}, ${saturation}%, 50%)`;
+                const gradientColor = `hsl(${hue}, ${saturation}%, ${luminosity}%)`;
+
+                body.style.background = `radial-gradient(${selectedColor}, ${gradientColor})`;
+
+                lightBulb.style.backgroundColor = selectedColor;
+            }
+
+            function updateColorBar(x) {
+                colorHandle.style.left = `${x}px`;
+
+                updateLight();
+            }
+
+            colorHandle.addEventListener('mousedown', (event) => {
+                event.preventDefault();
+
+                function handleMouseMove(e) {
+                    const rect = colorBar.getBoundingClientRect();
+                    let x = e.clientX - rect.left;
+
+                    x = Math.max(0, Math.min(x, rect.width));
+
+                    updateColorBar(x);
+                }
+
+                function handleMouseUp() {
+                    document.removeEventListener('mousemove', handleMouseMove);
+                    document.removeEventListener('mouseup', handleMouseUp);
+                }
+
+                document.addEventListener('mousemove', handleMouseMove);
+                document.addEventListener('mouseup', handleMouseUp);
+            });
+
+            colorBar.addEventListener('click', (event) => {
+                const rect = colorBar.getBoundingClientRect();
+                let x = event.clientX - rect.left;
+
+                x = Math.max(0, Math.min(x, rect.width));
+
+                updateColorBar(x);
+            });
+
+            brightnessSlider.addEventListener('input', updateLight);
+
+            // Initial update
+            updateLight();
+        </script>
+    </body>
+
+</html>
