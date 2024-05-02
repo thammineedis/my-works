@@ -1,0 +1,230 @@
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    height: 100%;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    position: relative;
+    width: 900px;
+    height: 600px;
+    border: 2px solid white;
+}
+
+.container .img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 900px 100%;
+}
+
+.container .background-img {
+    background-image: url("../images/nature.jpg");
+}
+
+.container .foreground-img {
+    background-image: url("../images/toyota.jpg");
+    width: 50%;
+}
+
+.container button {
+    background-color: #f7d206;
+    padding: .8em 2.5em;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all ease .5s;
+    margin-top: 1.2em;
+    position: absolute;
+    bottom: 3em;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.container button:hover {
+    transform: translate(-50%, -.25em);
+}
+
+.container .slider {
+    position: absolute;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 100%;
+    background: rgba(242, 242, 242, 0.3);
+    outline: none;
+    margin: 0;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .slider:hover {
+    background: rgba(242, 242, 242, 0.1);
+}
+
+.container .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 6px;
+    height: 100vh;
+    background: white;
+    cursor: pointer;
+}
+
+.container .slider::-moz-range-thumb {
+    width: 6px;
+    height: 100vh;
+    background: white;
+    cursor: pointer;
+}
+
+.container .slider-button {
+    pointer-events: none;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: white;
+    left: calc(50% - 18px);
+    top: calc(50% - 18px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .slider-button:after {
+    content: "";
+    padding: 3px;
+    display: inline-block;
+    border: solid #5D5D5D;
+    border-width: 0 2px 2px 0;
+    transform: rotate(-45deg);
+}
+
+.container .slider-button:before {
+    content: "";
+    padding: 3px;
+    display: inline-block;
+    border: solid #5D5D5D;
+    border-width: 0 2px 2px 0;
+    transform: rotate(135deg);
+}
+
+@media (min-width:200px) and (max-width:1024px) {
+    .container {
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+    }
+
+    .container .img {
+        background-size: cover;
+    }
+}
+
+
+/* Swiping Hand Animation Styles */
+#swipe {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    transition: all ease .3s;
+}
+
+#swipe.getOut {
+    visibility: hidden;
+    opacity: 0;
+}
+
+#swipe h6 {
+    background-color: rgba(0, 0, 0, .8);
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    padding: .4em .75em;
+    border-radius: 4px;
+    width: 125px;
+    text-align: center;
+}
+
+.path {
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background: rgba(245, 221, 2, 0.5);
+    border-radius: 40px;
+    top: 28px;
+    left: 78px;
+    animation: expand 2s infinite;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes expand {
+    0% {
+        width: 20px;
+    }
+
+    50% {
+        width: 78px;
+        left: 20px;
+    }
+
+    100% {
+        width: 20px;
+    }
+}
+
+.hand-icon {
+    position: relative;
+    background-image: url('https://i.postimg.cc/8556gm60/hand.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s infinite;
+    transform-origin: 52% 62%;
+    margin-bottom: -20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(30deg);
+        margin-left: 20px;
+    }
+
+    50% {
+        transform: rotate(-15deg);
+        margin-left: -20px;
+    }
+
+    100% {
+        transform: rotate(0deg);
+        margin-left: 20px;
+    }
+}

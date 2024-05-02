@@ -1,0 +1,312 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+    user-select: none;
+    scroll-behavior: smooth;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+}
+
+input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+label {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    margin: 0;
+    z-index: 2;
+    cursor: pointer;
+    transition-duration: .4s;
+    box-shadow: none;
+}
+
+input:checked+label {
+    background-color: transparent;
+}
+
+input+label::after {
+    content: '';
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 512' width='100' style='fill:white'%3E%3Cpath d='M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z' /%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 16px 16px;
+    background-color: #000;
+    line-height: 32px;
+    position: absolute;
+    color: white;
+    height: 32px;
+    width: 32px;
+    bottom: 155px;
+    right: 10px;
+    z-index: 100;
+    border-radius: 20px;
+}
+
+
+input:checked+label::after {
+    background-image: none;
+    width: 0;
+    left: 0;
+    z-index: 10;
+}
+
+input:checked+label+.scroll~input+label::after {
+    display: none;
+}
+
+input:checked+label+.scroll+input+label::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 512' width='100' fill='white'%3E%3Cpath d='M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z' /%3E%3C/svg%3E");
+    display: block;
+    width: 32px;
+    right: 10px;
+    bottom: 190px;
+}
+
+input:focus+label {
+    box-shadow: 0 0 0 2px teal, 0 0 18px white;
+}
+
+.scroll {
+    position: absolute;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    transform: translateX(-100%);
+    transition-duration: .4s;
+    opacity: 1;
+}
+
+input:checked~.scroll {
+    transform: translateX(100%);
+}
+
+input:checked+label+.scroll {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+
+/* Before & After Comparison Slider Styles */
+
+.ba-Slider {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    overflow: hidden;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 100%;
+    height: 75vh;
+}
+
+.slider {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url(../images/slider.png) no-repeat center center;
+    width: 32px;
+    height: 100vh;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.slider::after {
+    position: absolute;
+    content: '';
+    background-color: #fff;
+    width: 4px;
+    height: 100vh;
+    left: 14px;
+}
+
+#before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    overflow: hidden;
+    height: 100%;
+}
+
+#after {
+    height: 100%;
+}
+
+#before img,
+#after img {
+    width: 100vw;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ease {
+    transition: width ease .5s, left ease .5s;
+    -moz-transition: width ease .5s, left ease .5s;
+    -webkit-transition: width ease .5s, left ease .5s;
+}
+
+.topLogo {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 30;
+    width: 160px;
+}
+
+.botFixed {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 0;
+    z-index: 30;
+    width: 100.5%;
+    max-height: 300px;
+}
+
+.topLogo img,
+.botFixed img {
+    max-width: 100%;
+}
+
+.botFixed a.cta {
+    position: fixed;
+    width: 70vw;
+    height: auto;
+    left: 50%;
+    top: 65%;
+    transform: translateX(-50%);
+    transition: all ease .3s;
+}
+
+.botFixed a.cta img {
+    max-width: 100%;
+}
+
+.botFixed a.cta:hover {
+    transform: translate(-50%, -.25em);
+    cursor: pointer;
+}
+
+
+/* Swiping Hand Animation Styles */
+
+.wrapper #swipe {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    transition: all ease .3s;
+}
+
+#swipe.getOut {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.wrapper #swipe h6 {
+    background-color: rgba(0, 0, 0, .8);
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    padding: .4em .75em;
+    border-radius: 4px;
+    width: 125px;
+}
+
+.path {
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background: rgba(245, 221, 2, 0.5);
+    border-radius: 40px;
+    top: 28px;
+    left: 78px;
+    animation: expand 2s infinite;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes expand {
+    0% {
+        width: 20px;
+    }
+
+    50% {
+        width: 78px;
+        left: 20px;
+    }
+
+    100% {
+        width: 20px;
+    }
+}
+
+.hand-icon {
+    position: relative;
+    background-image: url('https://i.postimg.cc/8556gm60/hand.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s infinite;
+    transform-origin: 52% 62%;
+    margin-bottom: -20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(30deg);
+        margin-left: 20px;
+    }
+
+    50% {
+        transform: rotate(-15deg);
+        margin-left: -20px;
+    }
+
+    100% {
+        transform: rotate(0deg);
+        margin-left: 20px;
+    }
+}

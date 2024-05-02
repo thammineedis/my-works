@@ -1,0 +1,158 @@
+html {
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+.outer {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    background: #000 url(../images/bg.jpg) no-repeat center top;
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.scratch-card {
+    width: 100%;
+    margin: 0 auto;
+    padding: 100px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+h2,
+h3 {
+    text-align: center;
+    color: #fdec00;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin: 0;
+}
+
+h2 {
+    font-size: 50px;
+}
+
+h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+p {
+    text-align: center;
+    color: #fff;
+    padding: .5em 0;
+    font-size: 16px;
+    letter-spacing: .015em;
+    margin-top: auto;
+    background-image: linear-gradient(90deg, rgb(252, 235, 1) 0%, rgb(255, 138, 136) 56%, rgb(42, 223, 255) 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+    font-weight: 600;
+}
+
+p span {
+    color: #fff;
+    font-size: 28px;
+    position: relative;
+    bottom: -6px;
+}
+
+button {
+    display: table;
+    width: auto;
+    background-color: #5a2ff5;
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    margin: 1em auto;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 20px 40px;
+    cursor: pointer;
+}
+
+.scratch-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 60px;
+    margin: 0;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.scratch-canvas {
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    cursor: grab;
+    cursor: -webkit-grab;
+}
+
+.code {
+    position: relative;
+    visibility: hidden;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #fffb02;
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.fade-out {
+    -webkit-animation: fade-out 0.8s;
+    -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+
+/* Float Animation Styles */
+.ghost {
+    animation: float 2s ease-out infinite;
+}
+
+@keyframes float {
+    50% {
+        transform: translate(0, 15px);
+    }
+}

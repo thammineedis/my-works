@@ -1,0 +1,155 @@
+html {
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: url(../images/golden_text_effect_on_grunge_background.jpg) no-repeat center center;
+    overflow: hidden;
+}
+
+.wrapper {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 1080px;
+    height: 100vh;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.lamp {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 65px;
+    height: 200px;
+    top: -10px;
+    left: 60%;
+    background: url(../images/hanging-ball1.png) no-repeat center top;
+    background-size: 100% auto;
+    z-index: 2;
+}
+
+.lamp2 {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 90px;
+    height: 280px;
+    top: -10px;
+    left: 75%;
+    background: url(../images/hanging-ball2.png) no-repeat center top;
+    background-size: 100% auto;
+    z-index: 2;
+}
+
+.diya {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 50px;
+    height: 180px;
+    top: -5px;
+    left: 10%;
+    background: url(../images/diya.png) no-repeat center top;
+    background-size: 100% auto;
+    z-index: 2;
+}
+
+@keyframes swing {
+    0% {
+        transform: rotate(-8deg) translateY(-10px);
+    }
+
+    100% {
+        transform: rotate(10deg) translateY(-30px);
+    }
+}
+
+@keyframes diya {
+    0% {
+        transform: rotate(-5deg) translateY(-5px);
+    }
+
+    100% {
+        transform: rotate(5deg) translateY(-20px);
+    }
+}
+
+.swing {
+    animation: swing 2.5s infinite alternate ease-in-out;
+    transform-origin: 1px -5px;
+}
+
+.swing2 {
+    animation: swing 2.75s infinite alternate ease-in-out;
+    transform-origin: 1px -5px;
+}
+
+.swingDiya {
+    animation: diya 4.5s infinite alternate ease-in-out;
+    transform-origin: 1px -80px;
+}
+
+/* Moving Animation */
+.product {
+    position: absolute;
+    left: 50%;
+    top: 70%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.product .ghost {
+    animation: float 10s ease-out infinite;
+
+}
+
+@keyframes float {
+    50% {
+        transform: translate(0, 50px);
+    }
+}
+
+
+.wrapper button {
+    background-color: #f7d206;
+    padding: .8em 2.5em;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all ease .5s;
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 110;
+}
+
+#canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: url(../images/golden_text_effect_on_grunge_background.jpg) no-repeat center center;
+    opacity: .85;
+}
+
+/* /////////////////////////////////  */
+/* Media Queries for smaller devices */
+@media (min-width: 200px) and (max-width: 991px) {
+    .product .ghost {
+        max-width: 360px;
+    }
+}

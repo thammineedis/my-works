@@ -1,0 +1,356 @@
+:root {
+    --dark-green: #9cc675;
+    --dark-yellow: #e89a3d;
+    --extra-light-brown: #fdf0d7;
+    --light-brown: #ecd5ab;
+    --dark-brown: #915b40;
+    --light-yellow: #f8e3a8;
+    --light-red: #f3ac99;
+    --light-teal: #a6c8cc;
+    --light-gray: #ddd5d6;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.outer {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: url(../images/beauty-bg.jpg) no-repeat center top;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    text-align: center;
+    position: relative;
+}
+
+.outer::after {
+    position: absolute;
+    content: '';
+    inset: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 0;
+}
+
+.outer h1 {
+    font-size: clamp(26px, 4vw, 50px);
+    line-height: 120%;
+    color: #fff;
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    text-shadow: 0 8px 16px rgba(0, 0, 0, .2);
+}
+
+.outer button {
+    background: linear-gradient(90deg, #203699, #c5287e, #d42d36, #203699);
+    background-size: 200%;
+    text-align: center;
+    padding: 1em 2em;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 4px;
+    border: none;
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, .2);
+    transition: all ease .5s;
+}
+
+.outer button:hover {
+    transform: translateY(-3px);
+    animation: animate 4s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        background-position: 0%;
+    }
+
+    100% {
+        background-position: 400%;
+    }
+}
+
+html,
+body {
+    position: relative;
+    height: 100%;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+body {
+    background: #000;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.btn.btn-main {
+    background: var(--dark-green);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    border: none;
+    position: relative;
+    padding: 15px 40px;
+}
+
+.btn.btn-main:before {
+    content: '';
+    width: 5px;
+    background: var(--dark-brown);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.flex-box-wrap {
+    display: flex;
+    width: 100%;
+    height: 70%;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 20;
+}
+
+.main-single-view {
+    width: 100%;
+}
+
+.swiper-slide {
+    width: 100%;
+}
+
+.team-info {
+    padding: 0;
+    list-style: none;
+    position: relative;
+}
+
+.team-info .team-info-item {
+    font-size: 22px;
+    padding: 15px 30px;
+    display: none;
+    position: absolute;
+}
+
+.team-info .team-info-item.active {
+    display: block;
+}
+
+
+@-webkit-keyframes team-info-item {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 50px, 0);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+}
+
+
+.team-info-item.active .heading,
+.team-info-item.active .content {
+    -webkit-animation-name: team-info-item;
+    animation-name: team-info-item;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-delay: 0s;
+}
+
+.team-info-item.active .content {
+    -webkit-animation-delay: .2s;
+}
+
+.heading {
+    margin: 0;
+}
+
+.content {
+    font-size: 19px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #000;
+    margin-top: 15px;
+}
+
+.fsocial {
+    list-style: none;
+    padding: 0;
+    display: flex;
+
+}
+
+.fsocial li {
+    margin: 5px 15px;
+    margin-bottom: 50px;
+
+}
+
+.fsocial li:first-child {
+    margin-left: 0;
+}
+
+.fsocial li img {
+    width: 30px;
+    filter: invert(1);
+}
+
+.exp-time {
+    list-style: none;
+    border-left: 2px solid #000;
+    padding-left: 20px;
+    margin-left: 0px;
+}
+
+.exp-time li {
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.exp-time li:before {
+    content: '';
+    height: 10px;
+    width: 10px;
+    background: #000;
+    display: block;
+    position: absolute;
+    left: -26px;
+}
+
+.fw300 {
+    font-weight: 300;
+
+}
+
+.exp-time h4,
+.exp-time h2,
+.exp-time p {
+    margin: 0;
+
+}
+
+.swiper-slide:hover {
+    cursor: ew-resize;
+}
+
+/* Swiping Hand Animation Styles */
+#swipe {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    transition: all ease .3s;
+}
+
+#swipe.getOut {
+    visibility: hidden;
+    opacity: 0;
+}
+
+#swipe h6 {
+    background-color: rgba(0, 0, 0, .8);
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    padding: .4em .75em;
+    border-radius: 4px;
+    width: 125px;
+    text-align: center;
+}
+
+.path {
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background: rgba(245, 221, 2, 0.5);
+    border-radius: 40px;
+    top: 28px;
+    left: 78px;
+    animation: expand 2s infinite;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes expand {
+    0% {
+        width: 20px;
+    }
+
+    50% {
+        width: 78px;
+        left: 20px;
+    }
+
+    100% {
+        width: 20px;
+    }
+}
+
+.hand-icon {
+    position: relative;
+    background-image: url('https://i.postimg.cc/8556gm60/hand.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s infinite;
+    transform-origin: 52% 62%;
+    margin-bottom: -20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(30deg);
+        margin-left: 20px;
+    }
+
+    50% {
+        transform: rotate(-15deg);
+        margin-left: -20px;
+    }
+
+    100% {
+        transform: rotate(0deg);
+        margin-left: 20px;
+    }
+}
+
+/* /////////////////////////////////  */
+/* Media Queries for smaller devices */
+@media (min-width: 200px) and (max-width: 991px) {
+    .swiper-slide img {
+        max-width: 80%;
+    }
+}

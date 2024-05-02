@@ -1,0 +1,692 @@
+html {
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    line-height: 22px;
+    background-image: linear-gradient(6deg, #031b00, #00001b);
+    background-size: 100% 100%;
+    overflow: hidden;
+}
+
+.outer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* Fire Works Canvas Styles */
+canvas {
+    display: block;
+    position: fixed;
+    width: 100vw !important;
+    height: 100vh !important;
+    inset: 0;
+    z-index: 9;
+}
+
+/* Blinking Diya Styles */
+.diya {
+    position: absolute;
+    right: 75px;
+    bottom: 50px;
+    z-index: 20;
+}
+
+.diya img {
+    max-width: 300px;
+}
+
+.holder {
+    position: relative;
+}
+
+.holder *,
+.holder *:before,
+.holder *:after {
+    position: absolute;
+    content: "";
+}
+
+.candle {
+    position: absolute;
+    bottom: 168px;
+    right: 150px;
+}
+
+
+.thread {
+    width: 4px;
+    height: 36px;
+    top: -17px;
+    left: 50%;
+    z-index: 1;
+    border-radius: 40% 40% 0 0;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background: #121212;
+    background: -webkit-gradient(linear, left top, left bottom, from(#d6994a), color-stop(#4b232c), color-stop(#121212), color-stop(black), color-stop(90%, #e8bb31));
+    background: linear-gradient(#d6994a, #4b232c, #121212, black, #e8bb31 90%);
+}
+
+.flame {
+    width: 24px;
+    height: 60px;
+    left: 50%;
+    -webkit-transform-origin: 50% 100%;
+    -ms-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    bottom: 100%;
+    border-radius: 50% 50% 20% 20%;
+    background: rgba(255, 255, 255, 1);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(80%, white), to(transparent));
+    background: linear-gradient(white 80%, transparent);
+    -webkit-animation: moveFlame 6s linear infinite, enlargeFlame 5s linear infinite;
+    animation: moveFlame 6s linear infinite, enlargeFlame 5s linear infinite;
+}
+
+.flame:before {
+    width: 100%;
+    height: 100%;
+    border-radius: 50% 50% 20% 20%;
+    -webkit-box-shadow: 0 0 15px 0 rgba(247, 93, 0, .4), 0 -6px 4px 0 rgba(247, 128, 0, .7);
+    box-shadow: 0 0 15px 0 rgba(247, 93, 0, .4), 0 -6px 4px 0 rgba(247, 128, 0, .7);
+}
+
+@-webkit-keyframes moveFlame {
+
+    0%,
+    100% {
+        -webkit-transform: translateX(-50%) rotate(-2deg);
+        transform: translateX(-50%) rotate(-2deg);
+    }
+
+    50% {
+        -webkit-transform: translateX(-50%) rotate(2deg);
+        transform: translateX(-50%) rotate(2deg);
+    }
+}
+
+@keyframes moveFlame {
+
+    0%,
+    100% {
+        -webkit-transform: translateX(-50%) rotate(-2deg);
+        transform: translateX(-50%) rotate(-2deg);
+    }
+
+    50% {
+        -webkit-transform: translateX(-50%) rotate(2deg);
+        transform: translateX(-50%) rotate(2deg);
+    }
+}
+
+@-webkit-keyframes enlargeFlame {
+
+    0%,
+    100% {
+        height: 45px;
+    }
+
+    50% {
+        height: 60px;
+    }
+}
+
+@keyframes enlargeFlame {
+
+    0%,
+    100% {
+        height: 45px;
+    }
+
+    50% {
+        height: 60px;
+    }
+}
+
+.glow {
+    width: 26px;
+    height: 60px;
+    border-radius: 50% 50% 35% 35%;
+    left: 50%;
+    top: -48px;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background: rgba(0, 133, 255, .7);
+    -webkit-box-shadow: 0 -40px 30px 0 #dc8a0c, 0 40px 50px 0 #dc8a0c, inset 3px 0 2px 0 rgba(0, 133, 255, .6), inset -3px 0 2px 0 rgba(0, 133, 255, .6);
+    box-shadow: 0 -40px 30px 0 #dc8a0c, 0 40px 50px 0 #dc8a0c, inset 3px 0 2px 0 rgba(0, 133, 255, .6), inset -3px 0 2px 0 rgba(0, 133, 255, .6);
+}
+
+.glow:before {
+    width: 70%;
+    height: 60%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    bottom: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.blinking-glow {
+    width: 100px;
+    height: 180px;
+    left: 50%;
+    top: -130px;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: #ff6000;
+    -webkit-filter: blur(50px);
+    -moz-filter: blur(60px);
+    -o-filter: blur(60px);
+    -ms-filter: blur(60px);
+    filter: blur(60px);
+    -webkit-animation: blinkIt .5s infinite;
+    animation: blinkIt 2s infinite;
+}
+
+@-webkit-keyframes blinkIt {
+    50% {
+        opacity: .8;
+    }
+}
+
+@keyframes blinkIt {
+    50% {
+        opacity: .8;
+    }
+}
+
+
+
+
+
+/* Border Lighting Styles */
+.lightingBox {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    z-index: 10;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 15px;
+}
+
+li {
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(ellipse at center, #fefcea 0%, #ff3a4b 60%);
+    border-radius: 50%;
+    animation: lights 600ms infinite ease-in-out;
+}
+
+li:nth-child(3n+1) {
+    animation-delay: 0s;
+}
+
+li:nth-child(3n+2) {
+    animation-delay: 200ms;
+}
+
+li:nth-child(3n+3) {
+    animation-delay: 400ms;
+}
+
+.top,
+.bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    position: absolute;
+}
+
+.right,
+.left {
+    position: absolute;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.top {
+    top: 0;
+}
+
+.right {
+    right: 0;
+}
+
+.left {
+    left: 0;
+}
+
+.bottom {
+    bottom: 0;
+}
+
+.top li,
+.bottom li {
+    margin-right: 5px;
+}
+
+.top li:nth-last-child(1),
+.bottom li:nth-last-child(1) {
+    margin-right: 0px;
+}
+
+.right li,
+.left li {
+    margin-top: 5px;
+}
+
+.right li:nth-last-child(1),
+.left li:nth-last-child(1) {
+    margin-bottom: 5px;
+}
+
+@keyframes lights {
+    0% {
+        box-shadow: inset 0px 0px 30px 7px rgba(254, 252, 190, 0.8), 0px 0px 30px 7px rgba(254, 252, 200, 0.8);
+    }
+
+    100% {
+        box-shadow: inset 0px 0px 0px 0px rgba(254, 252, 234, 0), 0px 0px 0px 0px rgba(254, 252, 234, 0);
+    }
+}
+
+
+/* Swingings */
+
+.lamp {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 65px;
+    height: 200px;
+    top: -10px;
+    left: 60%;
+    background: url(../images/hanging-ball1.png) no-repeat center top;
+    background-size: 100% auto;
+    z-index: 12;
+}
+
+.lamp2 {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 90px;
+    height: 280px;
+    top: -10px;
+    left: 75%;
+    background: url(../images/hanging-ball2.png) no-repeat center top;
+    background-size: 100% auto;
+    z-index: 12;
+}
+
+.marigold {
+    position: absolute;
+    width: 35px;
+    height: 400px;
+    background: url(../images/marigold-flowers.png) no-repeat center top;
+    background-size: 100% auto;
+    z-index: 4;
+    top: 0;
+}
+
+.alignLeft {
+    left: 75px;
+}
+
+.alignRight {
+    right: 75px;
+}
+
+@keyframes swing {
+    0% {
+        transform: rotate(-8deg) translateY(-10px);
+    }
+
+    100% {
+        transform: rotate(10deg) translateY(-30px);
+    }
+}
+
+@keyframes flowersSwing {
+    0% {
+        transform: rotate(-2deg) translateY(-5px);
+    }
+
+    100% {
+        transform: rotate(2deg) translateY(-10px);
+    }
+}
+
+.swing {
+    animation: swing 2.5s infinite alternate ease-in-out;
+    transform-origin: 1px -5px;
+}
+
+.swing2 {
+    animation: swing 2.75s infinite alternate ease-in-out;
+    transform-origin: 1px -5px;
+}
+
+.flowersSwing {
+    animation: flowersSwing 2s infinite alternate ease-in-out;
+    transform-origin: 1px -5px;
+}
+
+/* Sticky Flowers */
+.stickyFlowers {
+    position: fixed;
+    z-index: 5;
+    width: 100%;
+    height: 300px;
+    top: -15%;
+    left: -5%;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+}
+
+.flowers {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: row;
+    transform: scale(.7);
+}
+
+.flowers img {
+    width: 310px;
+    height: 310px;
+    animation: rotate-animation 30s infinite linear;
+    z-index: 5;
+    position: relative;
+}
+
+.flowers img.medium {
+    width: 190px;
+    height: 190px;
+    animation: rotate-animation 35s infinite linear;
+    z-index: 6;
+}
+
+.flowers img.small {
+    width: 170px;
+    height: 170px;
+    animation: rotate-animation 40s infinite linear;
+    z-index: 7;
+}
+
+@keyframes rotate-animation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.flowers img.f1 {
+    left: -35px;
+    top: 0;
+    position: absolute;
+    width: 350px;
+    height: 350px;
+}
+
+.flowers img.f2 {
+    left: 200px;
+    top: -60px;
+    position: absolute;
+}
+
+.flowers img.f3 {
+    left: 230px;
+    top: 60px;
+    position: absolute;
+}
+
+.flowers img.f4 {
+    left: 400px;
+    top: 10px;
+    position: absolute;
+}
+
+.flowers img.f5 {
+    left: 560px;
+    top: 170px;
+    position: absolute;
+}
+
+.flowers img.f6 {
+    left: 560px;
+    top: -30px;
+    position: absolute;
+    z-index: 4;
+}
+
+.flowers img.f7 {
+    left: 660px;
+    top: 80px;
+    position: absolute;
+}
+
+.flowers img.f8 {
+    left: 810px;
+    top: 30px;
+    position: absolute;
+}
+
+.flowers img.f9 {
+    left: 820px;
+    top: 50px;
+    position: absolute;
+    z-index: 4;
+}
+
+.flowers img.f10 {
+    left: 960px;
+    top: 0px;
+    position: absolute;
+    z-index: 10;
+}
+
+.flowers img.f11 {
+    left: 1010px;
+    top: 60px;
+    position: absolute;
+}
+
+.flowers img.f12 {
+    left: 1155px;
+    top: 0px;
+    position: absolute;
+    width: 380px;
+    height: 380px;
+}
+
+.flowers img.f13 {
+    left: 1330px;
+    top: 30px;
+    position: absolute;
+}
+
+.flowers img.f14 {
+    left: 1500px;
+    top: 50px;
+    position: absolute;
+}
+
+.flowers img.f15 {
+    left: 1500px;
+    top: 40px;
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    z-index: 4;
+}
+
+.flowers img.f16 {
+    left: 1700px;
+    top: 10px;
+    position: absolute;
+}
+
+.flowers img.f17 {
+    left: 1730px;
+    top: 220px;
+    position: absolute;
+}
+
+.flowers img.f18 {
+    left: 1800px;
+    top: 0px;
+    position: absolute;
+    width: 370px;
+    height: 370px;
+    z-index: 4;
+}
+
+.flowers img.f19 {
+    left: 340px;
+    top: -10px;
+    position: absolute;
+}
+
+/* rotating Rays */
+.rays {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    height: 600px;
+    width: 100%;
+}
+
+.rays img {
+    animation: rotate-animation 50s infinite linear;
+    max-width: 600px;
+    opacity: .2;
+}
+
+.rays img.leftSide {
+    position: absolute;
+    left: -300px;
+}
+
+.rays img.rightSide {
+    position: absolute;
+    right: -300px;
+}
+
+
+/* /////////////////////////////////  */
+/* Media Queries for smaller devices */
+@media (min-width: 200px) and (max-width: 991px) {
+    .stickyFlowers {
+        top: -3%;
+    }
+
+    .flowers {
+        transform: scale(.2);
+    }
+
+    .marigold {
+        width: 17px;
+        height: 200px;
+    }
+
+    .alignLeft {
+        left: 25px
+    }
+
+    .alignRight {
+        right: 25px
+    }
+
+    .diya {
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .flame:before {
+        box-shadow: none;
+    }
+
+    .top,
+    .bottom {
+        width: auto;
+    }
+
+    .rays {
+        height: 300px;
+    }
+
+    .rays img {
+        max-width: 300px;
+    }
+
+    .rays img.leftSide {
+        left: -150px;
+    }
+
+    .rays img.rightSide {
+        right: -150px;
+    }
+
+    .diya img {
+        max-width: 200px;
+    }
+
+    .candle {
+        bottom: 120px;
+        right: 50%;
+    }
+
+    .lamp {
+        width: 45px;
+        height: 140px;
+    }
+
+    .lamp2 {
+        width: 60px;
+        height: 200px;
+    }
+}

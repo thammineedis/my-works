@@ -1,0 +1,119 @@
+html {
+    scroll-behavior: smooth;
+}
+
+html,
+body,
+.stage,
+.ring,
+.img {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    user-select: none;
+}
+
+html,
+body,
+.stage {
+    overflow: hidden;
+    background: #000;
+}
+
+div,
+svg {
+    position: absolute;
+}
+
+.container {
+    perspective: 2000px;
+    width: 300px;
+    height: 400px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Swiping Hand Animation Styles */
+#swipe {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    transition: all ease .3s;
+}
+
+#swipe.getOut {
+    visibility: hidden;
+    opacity: 0;
+}
+
+#swipe h6 {
+    background-color: rgba(0, 0, 0, .8);
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    padding: .4em .75em;
+    border-radius: 4px;
+    width: 125px;
+    text-align: center;
+}
+
+.path {
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background: rgba(245, 221, 2, 0.5);
+    border-radius: 40px;
+    top: 28px;
+    left: 78px;
+    animation: expand 2s infinite;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes expand {
+    0% {
+        width: 20px;
+    }
+
+    50% {
+        width: 78px;
+        left: 20px;
+    }
+
+    100% {
+        width: 20px;
+    }
+}
+
+.hand-icon {
+    position: relative;
+    background-image: url('https://i.postimg.cc/8556gm60/hand.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s infinite;
+    transform-origin: 52% 62%;
+    margin-bottom: -35px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(30deg);
+        margin-left: 20px;
+    }
+
+    50% {
+        transform: rotate(-15deg);
+        margin-left: -20px;
+    }
+
+    100% {
+        transform: rotate(0deg);
+        margin-left: 20px;
+    }
+}

@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background: #525252;
+    font-family: 'Roboto', sans-serif;
+    line-height: 22px;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.scratchContainer {
+    width: 100%;
+    max-width: 1080px;
+    height: 500px;
+    background-color: #000;
+    position: relative;
+    margin: 0 auto;
+}
+
+.base,
+#scratch {
+    height: 500px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    cursor: grabbing;
+}
+
+.base {
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    z-index: 1;
+}
+
+.base .videoArea {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
+}
+
+.base .videoArea iframe,
+.base .videoArea video {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+#scratch {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    z-index: 2;
+    filter: url(#noiseFilter);
+}
+
+
+/* ////////////////////// */
+/* Scratch Hint Animation */
+
+.scratchContainer h1#hint {
+    position: fixed;
+    left: 50%;
+    top: 25%;
+    transform: translateX(-50%);
+    z-index: 5;
+    color: #fff;
+    animation: hideHint 7s ease-out;
+}
+
+#hint.getOut {
+    visibility: hidden;
+    opacity: 0;
+}
+
+h1#hint span {
+    position: relative;
+    top: 5px;
+    display: inline-block;
+    -webkit-animation: bounce 0.3s ease infinite alternate;
+    font-size: 40px;
+    color: #fff;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc,
+        0 5px 0 #ccc, 0 6px 0 transparent, 0 7px 0 transparent, 0 8px 0 transparent,
+        0 9px 0 transparent, 0 10px 10px rgba(0, 0, 0, 0.4);
+}
+
+h1#hint span:nth-child(2) {
+    -webkit-animation-delay: 0.1s;
+}
+
+h1#hint span:nth-child(3) {
+    -webkit-animation-delay: 0.2s;
+}
+
+h1#hint span:nth-child(4) {
+    -webkit-animation-delay: 0.3s;
+}
+
+h1#hint span:nth-child(5) {
+    -webkit-animation-delay: 0.4s;
+}
+
+h1#hint span:nth-child(6) {
+    -webkit-animation-delay: 0.5s;
+}
+
+h1#hint span:nth-child(7) {
+    -webkit-animation-delay: 0.6s;
+}
+
+h1#hint span:nth-child(8) {
+    -webkit-animation-delay: 0.2s;
+}
+
+h1#hint span:nth-child(9) {
+    -webkit-animation-delay: 0.3s;
+}
+
+h1#hint span:nth-child(10) {
+    -webkit-animation-delay: 0.4s;
+}
+
+h1#hint span:nth-child(11) {
+    -webkit-animation-delay: 0.5s;
+}
+
+h1#hint span:nth-child(12) {
+    -webkit-animation-delay: 0.6s;
+}
+
+h1#hint span:nth-child(13) {
+    -webkit-animation-delay: 0.7s;
+}
+
+h1#hint span:nth-child(14) {
+    -webkit-animation-delay: 0.8s;
+}
+
+/* ANIMATION */
+@-webkit-keyframes bounce {
+    100% {
+        top: -20px;
+        text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc,
+            0 5px 0 #ccc, 0 6px 0 #ccc, 0 7px 0 #ccc, 0 8px 0 #ccc, 0 9px 0 #ccc,
+            0 50px 25px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@-webkit-keyframes hideHint {
+    0% {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    90% {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}

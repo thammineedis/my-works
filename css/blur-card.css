@@ -1,0 +1,129 @@
+html {
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.carousel {
+    height: 100vh;
+    perspective: 250px;
+}
+
+.carousel .carousel-item {
+    width: 43em;
+    background: #fcf9fa;
+    height: 100vh;
+    text-align: center;
+    opacity: 0.7;
+    filter: blur(10px);
+    transition: opacity 0.5s, filter 0.5s;
+}
+
+.card {
+    margin: 0 auto !important;
+}
+
+.carousel .carousel-item.active {
+    opacity: 1;
+    filter: blur(0);
+
+}
+
+.carousel {
+    overflow: inherit;
+}
+
+.img-area {
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.img-area img {
+    width: 100%;
+}
+
+.card .card-content {
+    position: absolute;
+    bottom: 5em;
+    width: 100%;
+    text-align: center;
+}
+
+.card .card-content button {
+    background-color: #f7d206;
+    padding: .8em 2.5em;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all ease .5s;
+    margin-top: 1.2em;
+}
+
+.card .card-content button:hover {
+    transform: translateY(-.25em);
+}
+
+.testi h3 {
+    font-size: 20px;
+    margin: 0;
+    color: #fff;
+    font-family: sans-serif;
+}
+
+.carousel-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40em;
+}
+
+.carousel-buttons button {
+    margin: 0;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+
+.carousel-buttons button:hover {
+    background-color: #ce3434;
+    color: #fff;
+}
+
+@media (min-width:200px) and (max-width:991px) {
+    .carousel-buttons {
+        width: 100%;
+        height: 100vh;
+        padding: 0 1.2em;
+    }
+
+    .img-area img {
+        max-height: 100%;
+        width: auto;
+    }
+}
